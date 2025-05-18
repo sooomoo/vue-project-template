@@ -1,4 +1,4 @@
-import { Platform, getPlatform } from "@/platforms/platform";
+import { getPlatform } from "@/platforms/platform";
 
 export interface DropFilesEvent {
     x: number;
@@ -25,5 +25,5 @@ export const useAppEventBus = () => {
  * @returns {boolean} Whether the platform is desktop.
  */
 export const isRunAsDesktop = (): boolean => {
-    return getPlatform() !== Platform.BROWSER;
+    return getPlatform() !== "web";
 };
