@@ -5,7 +5,7 @@ import ChangeThemeButton from "@/components/ChangeThemeButton.vue";
 <template>
     <header class="header">
         <div class="logo"></div>
-        <div>Hello Vue App</div>
+        <div>Header Vue App</div>
         <div class="spacer"></div>
         <ChangeThemeButton />
     </header>
@@ -23,7 +23,6 @@ import ChangeThemeButton from "@/components/ChangeThemeButton.vue";
     top: 0;
     right: 0;
     z-index: 10;
-    font-size: 1.5rem;
 
     & .logo {
         width: 16px;

@@ -4,7 +4,7 @@ initApp();
 
 import { createRouter, createWebHistory, RouterView } from "vue-router/auto";
 import { routes, handleHotUpdate } from "vue-router/auto-routes";
-import { DataLoaderPlugin } from "unplugin-vue-router/data-loaders";
+// import { DataLoaderPlugin } from "unplugin-vue-router/data-loaders";
 import { setupLayouts } from "virtual:generated-layouts";
 
 const router = createRouter({
@@ -15,11 +15,10 @@ const router = createRouter({
 if (import.meta.hot) {
     handleHotUpdate(router);
 }
-console.log("router", router.getRoutes());
 
 const app = createApp(RouterView);
 app.use(createPinia());
-app.use(DataLoaderPlugin, { router }); // Register the plugin before the router
+// app.use(DataLoaderPlugin, { router }); // Register the plugin before the router
 app.use(router); // adding the router will trigger the initial navigation
 app.mount("#app");
 
