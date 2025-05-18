@@ -19,6 +19,14 @@ export enum Platform {
     LINUX = 7,
 }
 
+export const getPlatformName = (): string => {
+    const platform = getPlatform();
+    if (platform === Platform.MAC) return "mac";
+    if (platform === Platform.WIN) return "win";
+    if (platform === Platform.LINUX) return "linux";
+    return "web";
+};
+
 /**
  * 获取平台类型
  * @returns {Platform} The type of the platform.
@@ -39,4 +47,11 @@ export const getPlatform = (): Platform => {
  */
 export const isRunAsDesktop = (): boolean => {
     return getPlatform() !== Platform.BROWSER;
+};
+
+/**
+ * 初始化平台
+ */
+export const initPlatform = () => {
+    document.documentElement.setAttribute("data-platform", getPlatformName());
 };

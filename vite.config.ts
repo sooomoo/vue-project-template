@@ -12,10 +12,6 @@ import Layouts from "vite-plugin-vue-layouts";
 export default defineConfig({
     appType: "spa",
     plugins: [
-        Layouts({
-            layoutsDirs: "layouts", // 指定布局文件的目录路径
-            defaultLayout: "default", // 指定默认布局文件的名称
-        }),
         VueRouter({
             routesFolder: [
                 {
@@ -64,6 +60,10 @@ export default defineConfig({
             // },
         }),
         vue(), // Vue must be placed after VueRouter()
+        Layouts({
+            layoutsDirs: "src/layouts", // 指定布局文件的目录路径
+            defaultLayout: "default", // 指定默认布局文件的名称
+        }),
         AutoImport({
             imports: [
                 "vue",

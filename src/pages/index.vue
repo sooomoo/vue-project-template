@@ -11,10 +11,8 @@ const isDesktop = isRunAsDesktop();
 </script>
 
 <template>
-    <main>
-        <HelloWorld msg="You did it!" />
-        <button @click="onClick">Increment</button>
-        <p>Count is: {{ counterStore.count }}</p>
-        <p>isDesktop: {{ isDesktop }}</p>
-    </main>
+    <HelloWorld msg="You did it!" />
+    <button @click="onClick">Increment</button>
+    <p>Count is: {{ counterStore.count }}</p>
+    <p>isDesktop: {{ isDesktop }}</p>
 </template>

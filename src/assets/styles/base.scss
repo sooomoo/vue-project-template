@@ -1,0 +1,98 @@
+@use "./reset.css";
+@use "./font.css";
+@use "./vars.scss";
+
+::selection {
+    background-color: var(--color-selection);
+}
+
+/* 设置滚动条整体样式 */
+::-webkit-scrollbar {
+    width: var(--scrollbar-size);
+    height: var(--scrollbar-size);
+}
+
+/* 设置滚动条轨道 */
+::-webkit-scrollbar-track {
+    background: transparent;
+    display: none;
+}
+
+/* 设置滚动条滑块 */
+::-webkit-scrollbar-thumb {
+    background: var(--color-scrollbar-thumb);
+    border-radius: 4px;
+    transition: background 0.3s ease;
+}
+
+/* 鼠标悬停在滑块上时的样式 */
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-scrollbar-thumb-hover);
+}
+::-webkit-scrollbar-button {
+    display: none;
+}
+
+/* 设置滚动条角落（当同时有水平和垂直滚动条时） */
+::-webkit-scrollbar-corner {
+    background: transparent;
+    display: none;
+}
+
+.drag {
+    --wails-draggable: drag;
+    -webkit-app-region: drag;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.nodrag {
+    --wails-draggable: no-drag;
+    -webkit-app-region: none;
+}
+
+.drop-target {
+    --wails-drop-target: drop;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-align-center {
+    align-items: center;
+}
+
+.flex-between {
+    justify-content: space-between;
+}
+
+.flex-column {
+    flex-direction: column;
+}
+
+.flex-justify-center {
+    justify-content: center;
+}
+
+.spacer {
+    flex: 1;
+}
+
+.gap-s {
+    gap: 4px;
+}
+
+.gap-m {
+    gap: 6px;
+}
+
+.gap-l {
+    gap: 12px;
+}

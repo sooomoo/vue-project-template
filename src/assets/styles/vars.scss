@@ -1,0 +1,40 @@
+:root {
+    --scrollbar-size: 8px;
+    --font-size: 14px;
+    --line-height: 1.65;
+    --header-height: 36px;
+}
+:root[data-platform="mac"] {
+    --header-height: 38px;
+}
+
+:root[data-theme="light"] {
+    --color-scrollbar-thumb: #ccc;
+    --color-scrollbar-thumb-hover: #bbb;
+    --color-background: transparent;
+    --color-text: #000000;
+    --color-titlebar-btn-back: #00000000;
+    --color-titlebar-btn-back-hover: #00000010;
+    --color-titlebar-btn-close-hover: #ff000080;
+    --color-card-background: #ffffffcc;
+    --color-selection: #1068ff80;
+}
+
+/* 暗黑模式的样式：dark */
+:root[data-theme="dark"] {
+    --color-scrollbar-thumb: #444;
+    --color-scrollbar-thumb-hover: #555;
+    --color-background: transparent;
+    --color-text: #ffffff;
+    --color-titlebar-btn-back: #ffffff00;
+    --color-titlebar-btn-back-hover: #ffffff20;
+    --color-titlebar-btn-close-hover: #ff0000a0;
+    --color-card-background: #88888820;
+    --color-selection: #1068ff80;
+}
+:root[data-platform="web"][data-theme="light"] {
+    --color-background: #ffffff;
+}
+:root[data-platform="web"][data-theme="dark"] {
+    --color-background: #282828;
+}

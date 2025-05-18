@@ -11,6 +11,7 @@ declare global {
   const acceptHMRUpdate: typeof import('pinia')['acceptHMRUpdate']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef']
+  const changeTheme: typeof import('../utils/theme')['changeTheme']
   const computed: typeof import('vue')['computed']
   const computedAsync: typeof import('@vueuse/core')['computedAsync']
   const computedEager: typeof import('@vueuse/core')['computedEager']
@@ -43,8 +44,11 @@ declare global {
   const getCurrentScope: typeof import('vue')['getCurrentScope']
   const getOSType: typeof import('../utils/platform')['getOSType']
   const getPlatform: typeof import('../utils/platform')['getPlatform']
+  const getPlatformName: typeof import('../utils/platform')['getPlatformName']
   const h: typeof import('vue')['h']
   const ignorableWatch: typeof import('@vueuse/core')['ignorableWatch']
+  const initPlatform: typeof import('../utils/platform')['initPlatform']
+  const initTheme: typeof import('../utils/theme')['initTheme']
   const inject: typeof import('vue')['inject']
   const injectLocal: typeof import('@vueuse/core')['injectLocal']
   const isDefined: typeof import('@vueuse/core')['isDefined']
@@ -60,6 +64,7 @@ declare global {
   const mapStores: typeof import('pinia')['mapStores']
   const mapWritableState: typeof import('pinia')['mapWritableState']
   const markRaw: typeof import('vue')['markRaw']
+  const newUid: typeof import('../utils/uid')['newUid']
   const nextTick: typeof import('vue')['nextTick']
   const onActivated: typeof import('vue')['onActivated']
   const onBeforeMount: typeof import('vue')['onBeforeMount']
@@ -320,4 +325,7 @@ declare global {
   // @ts-ignore
   export type { Platform, OSType } from '../utils/platform'
   import('../utils/platform')
+  // @ts-ignore
+  export type { ThemeMode } from '../utils/theme'
+  import('../utils/theme')
 }
