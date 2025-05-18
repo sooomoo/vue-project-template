@@ -15,6 +15,18 @@ const darkModeChangeEvent = (event: MediaQueryListEvent) => {
 };
 
 /**
+ * 获取主题模式
+ * @returns {ThemeMode} 主题模式
+ */
+export const getThemeMode = (): ThemeMode => {
+    const theme = localStorage.getItem("theme");
+    if (!theme) {
+        localStorage.setItem("theme", "auto");
+    }
+    return theme as ThemeMode;
+};
+
+/**
  * 切换主题
  * @param theme 主题模式
  */
@@ -33,4 +45,20 @@ export const changeTheme = (theme: ThemeMode) => {
         setDarkMode(theme === "dark");
         darkModeQuery.removeEventListener("change", darkModeChangeEvent);
     }
+};
+
+/**
+ * 以响应式的方式处理主题模式
+ * @returns 主题模式
+ */
+export const useThemeMode = () => {
+    const themeMode = ref<ThemeMode>(getThemeMode());
+    watch(
+        themeMode,
+        (newTheme) => {
+            changeTheme(newTheme);
+        },
+        { immediate: true },
+    );
+    return themeMode;
 };

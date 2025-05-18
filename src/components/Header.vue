@@ -1,10 +1,13 @@
 <script setup lang="ts">
+import ChangeThemeButton from "@/components/ChangeThemeButton.vue";
 </script>
 
 <template>
     <header class="header">
         <div class="logo"></div>
         <div>Hello Vue App</div>
+        <div class="spacer"></div>
+        <ChangeThemeButton />
     </header>
 </template>
 
@@ -31,6 +34,10 @@
         background-repeat: no-repeat;
         background-position: center;
         background-image: url("@/assets/logo.svg");
+    }
+
+    & .change-theme-button {
+        margin-right: 8px;
     }
 }
 </style>

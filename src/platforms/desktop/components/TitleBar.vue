@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
+import ChangeThemeButton from "@/components/ChangeThemeButton.vue";
 import {
     EventsOn,
     Quit,
@@ -32,6 +33,7 @@ onMounted(async () => {
             <div class="titlebar__right">
                 <slot></slot>
             </div>
+            <ChangeThemeButton />
             <button class="nodrag flex-center titlebar__sys-btn" @click="WindowMinimise">
                 <svg viewBox="0 0 32 32">
                     <line x1="10" y1="16" x2="22" y2="16" />
