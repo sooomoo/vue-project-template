@@ -30,7 +30,7 @@ export const getThemeMode = (): ThemeMode => {
  * 如果是桌面环境，则改变一下窗口的主题模式
  */
 const changeWindowTheme = async (theme: ThemeMode) => {
-    if (!isRunAsDesktop()) return;
+    if (isWeb()) return;
     const { WindowSetDarkTheme, WindowSetLightTheme, WindowSetSystemDefaultTheme } = await import(
         "@/platforms/desktop/wailsjs/runtime/runtime"
     );

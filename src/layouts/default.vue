@@ -3,11 +3,11 @@ import { RouterView } from "vue-router";
 import TitleBar from "@/platforms/desktop/components/TitleBar.vue";
 import Header from "@/components/Header.vue";
 
-const isDesktop = isRunAsDesktop();
+const isDesk = isDesktop();
 </script>
 
 <template>
-    <component :is="isDesktop ? TitleBar : Header" />
+    <component :is="isDesk ? TitleBar : Header" />
     <h1>123</h1>
     <RouterView />
 </template>

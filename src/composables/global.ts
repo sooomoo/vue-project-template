@@ -20,10 +20,10 @@ export const useAppEventBus = () => {
     return appBus;
 };
 
-/**
- * 是否运行在桌面端
- * @returns {boolean} Whether the platform is desktop.
- */
-export const isRunAsDesktop = (): boolean => {
-    return getPlatform() !== "web";
-};
+export const usePlatform = () => getPlatform();
+
+export const isWeb = () => getPlatform() === "web";
+export const isDesktop = () => getPlatform() !== "web";
+export const isMac = () => getPlatform() === "mac";
+export const isWin = () => getPlatform() === "win";
+export const isLinux = () => getPlatform() === "linux";

@@ -6,7 +6,7 @@ const onClick = () => {
     counterStore.increment();
 };
 
-const isDesktop = isRunAsDesktop();
+const isDesk = isDesktop();
 
 const bus = useAppEventBus();
 
@@ -30,7 +30,7 @@ const onDragOver = (evt: DragEvent) => {
     <HelloWorld msg="You did it!" />
     <button @click="onClick">Increment</button>
     <p>Count is: {{ counterStore.count }}</p>
-    <p>isDesktop: {{ isDesktop }}</p>
+    <p>isDesktop: {{ isDesk }}</p>
     <div class="main__drop-area wails-drop-target-active drop-target" @dragover.prevent.stop="onDragOver">
         drop in
     </div>

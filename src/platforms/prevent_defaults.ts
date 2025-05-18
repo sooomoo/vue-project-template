@@ -1,3 +1,5 @@
+import { getPlatform } from "@/platforms/platform";
+
 const preventDefaults = (e: Event) => {
     e.preventDefault();
     e.stopPropagation();
@@ -12,7 +14,7 @@ const preventEvents = ["dragenter", "dragover", "dragleave"];
  */
 export const preventDocumentDefaultEvents = () => {
     const events = [...preventEvents];
-    if (isRunAsDesktop()) {
+    if (getPlatform() !== "web") {
         events.push("contextmenu");
     }
     // 阻止默认行为（阻止浏览器打开文件）
