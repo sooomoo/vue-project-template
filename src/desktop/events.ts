@@ -1,5 +1,3 @@
-import { getPlatform } from "@/platforms/platform";
-
 export interface DesktopEventsListener {
     secondLaunchCallback: (args: string[]) => void;
     dropFilesCallback: (x: number, y: number, files: string[]) => void;

@@ -1,5 +1,4 @@
-import { initDesktopEvents, type DesktopEventsListener } from "@/platforms/desktop/events";
-import { preventDocumentDefaultEvents } from "@/platforms/prevent_defaults";
+import { initDesktopEvents, type DesktopEventsListener } from "@/desktop/events";
 
 const desktopEventsListener: DesktopEventsListener = {
     secondLaunchCallback: (args) => {

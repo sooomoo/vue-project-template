@@ -1,5 +1,3 @@
-import { getPlatform } from "@/platforms/platform";
-
 const preventDefaults = (e: Event) => {
     e.preventDefault();
     e.stopPropagation();

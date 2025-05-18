@@ -32,7 +32,7 @@ export const getThemeMode = (): ThemeMode => {
 const changeWindowTheme = async (theme: ThemeMode) => {
     if (isWeb()) return;
     const { WindowSetDarkTheme, WindowSetLightTheme, WindowSetSystemDefaultTheme } = await import(
-        "@/platforms/desktop/wailsjs/runtime/runtime"
+        "@/desktop/wailsjs/runtime/runtime"
     );
 
     if (theme === "dark") {

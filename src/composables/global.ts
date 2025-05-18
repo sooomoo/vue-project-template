@@ -1,5 +1,3 @@
-import { getPlatform } from "@/platforms/platform";
-
 export interface DropFilesEvent {
     x: number;
     y: number;
@@ -19,8 +17,6 @@ export const useAppEventBus = () => {
     }
     return appBus;
 };
-
-export const usePlatform = () => getPlatform();
 
 export const isWeb = () => getPlatform() === "web";
 export const isDesktop = () => getPlatform() !== "web";

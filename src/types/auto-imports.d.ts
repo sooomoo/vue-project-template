@@ -338,6 +338,9 @@ declare global {
   export type { EventBus, EventBusListener } from '../utils/eventbus'
   import('../utils/eventbus')
   // @ts-ignore
+  export type { Platform } from '../utils/platform'
+  import('../utils/platform')
+  // @ts-ignore
   export type { DropFilesEvent } from '../composables/global'
   import('../composables/global')
   // @ts-ignore
