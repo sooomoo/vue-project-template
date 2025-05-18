@@ -10,6 +10,6 @@
 </template>
 <style lang="css">
 .icon-theme-auto {
-    transform: scale(0.9);
+    transform: scale(0.925);
 }
 </style>

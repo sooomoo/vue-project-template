@@ -7,6 +7,6 @@
 </template>
 <style lang="css">
 .icon-theme-dark {
-    transform: scale(0.9);
+    transform: scale(0.85);
 }
 </style>
