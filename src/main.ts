@@ -1,4 +1,4 @@
-import "./assets/styles/main.css";
+import "./assets/main.css";
 
 initApp();
 

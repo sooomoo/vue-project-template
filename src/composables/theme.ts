@@ -15,14 +15,6 @@ const darkModeChangeEvent = (event: MediaQueryListEvent) => {
 };
 
 /**
- * 初始化主题, 从localStorage读取相关的配置
- */
-export const initTheme = () => {
-    const theme = useLocalStorage<ThemeMode>("theme", "auto");
-    changeTheme(theme.value);
-};
-
-/**
  * 切换主题
  * @param theme 主题模式
  */

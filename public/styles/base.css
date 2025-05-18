@@ -96,3 +96,25 @@
 .gap-l {
     gap: 12px;
 }
+
+body {
+    width: 100vw;
+    height: 100vh;
+    color: var(--color-text);
+    background-color: var(--color-background);
+    font-size: var(--font-size);
+    line-height: var(--line-height);
+    font-family:
+        "MiSans",
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "PingFang SC",
+        "Microsoft YaHei",
+        "Segoe UI",
+        Roboto,
+        sans-serif;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    /* cursor: default; // 设置为default时，会导致鼠标放到边框去跳转大小时，鼠标样式变为箭头 */
+}

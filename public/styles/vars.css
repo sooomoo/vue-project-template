@@ -8,35 +8,6 @@
     --header-height: 38px;
 }
 
-@media (prefers-color-scheme: light) {
-    :root {
-        --color-scrollbar-thumb: #ccc;
-        --color-scrollbar-thumb-hover: #bbb;
-        /* --color-background: transparent; */
-        --color-background: #ffffff;
-        --color-text: #000000;
-        --color-titlebar-btn-back: #00000000;
-        --color-titlebar-btn-back-hover: #00000010;
-        --color-titlebar-btn-close-hover: #ff000080;
-        --color-card-background: #ffffffcc;
-        --color-selection: #1068ff80;
-    }
-}
-@media (prefers-color-scheme: dark) {
-    :root {
-        --color-scrollbar-thumb: #444;
-        --color-scrollbar-thumb-hover: #555;
-        /* --color-background: transparent; */
-        --color-background: #282828;
-        --color-text: #ffffff;
-        --color-titlebar-btn-back: #ffffff00;
-        --color-titlebar-btn-back-hover: #ffffff20;
-        --color-titlebar-btn-close-hover: #ff0000a0;
-        --color-card-background: #88888820;
-        --color-selection: #1068ff80;
-    }
-}
-
 :root[data-theme="light"] {
     --color-scrollbar-thumb: #ccc;
     --color-scrollbar-thumb-hover: #bbb;
