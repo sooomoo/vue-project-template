@@ -6,14 +6,14 @@
 // biome-ignore lint: disable
 export {}
 declare global {
-  const AppEvent: typeof import('../composables/global')['AppEvent']
+  const AppEvent: (typeof import("../composables/global"))["AppEvent"]
   const EffectScope: typeof import('vue')['EffectScope']
   const EventBus: typeof import('../utils/eventbus')['EventBus']
   const Platform: typeof import('../utils/platform')['Platform']
   const acceptHMRUpdate: typeof import('pinia')['acceptHMRUpdate']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef']
-  const changeTheme: typeof import('../utils/theme')['changeTheme']
+  const changeTheme: typeof import('../composables/theme')['changeTheme']
   const computed: typeof import('vue')['computed']
   const computedAsync: typeof import('@vueuse/core')['computedAsync']
   const computedEager: typeof import('@vueuse/core')['computedEager']
@@ -49,8 +49,9 @@ declare global {
   const getPlatformName: typeof import('../utils/platform')['getPlatformName']
   const h: typeof import('vue')['h']
   const ignorableWatch: typeof import('@vueuse/core')['ignorableWatch']
+  const initApp: typeof import('../composables/init')['initApp']
   const initPlatform: typeof import('../utils/platform')['initPlatform']
-  const initTheme: typeof import('../utils/theme')['initTheme']
+  const initTheme: typeof import('../composables/theme')['initTheme']
   const inject: typeof import('vue')['inject']
   const injectLocal: typeof import('@vueuse/core')['injectLocal']
   const isDefined: typeof import('@vueuse/core')['isDefined']
@@ -58,7 +59,7 @@ declare global {
   const isReactive: typeof import('vue')['isReactive']
   const isReadonly: typeof import('vue')['isReadonly']
   const isRef: typeof import('vue')['isRef']
-  const isRunAsDesktop: typeof import('../utils/platform')['isRunAsDesktop']
+  const isRunAsDesktop: typeof import('../composables/global')['isRunAsDesktop']
   const makeDestructurable: typeof import('@vueuse/core')['makeDestructurable']
   const mapActions: typeof import('pinia')['mapActions']
   const mapGetters: typeof import('pinia')['mapGetters']
@@ -329,12 +330,9 @@ declare global {
   export type { EventBus, EventBusListener } from '../utils/eventbus'
   import('../utils/eventbus')
   // @ts-ignore
-  export type { Platform, OSType } from '../utils/platform'
-  import('../utils/platform')
-  // @ts-ignore
-  export type { ThemeMode } from '../utils/theme'
-  import('../utils/theme')
-  // @ts-ignore
   export type { DropFilesEvent } from '../composables/global'
   import('../composables/global')
+  // @ts-ignore
+  export type { ThemeMode } from '../composables/theme'
+  import('../composables/theme')
 }

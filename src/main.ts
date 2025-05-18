@@ -1,14 +1,6 @@
 import "./assets/styles/main.scss";
 
-// do init
-{
-    initPlatform();
-    initTheme();
-    const cid = useLocalStorage("cid", "");
-    if (cid.value.length !== 32) {
-        cid.value = newUid();
-    }
-}
+initApp();
 
 import { createRouter, createWebHistory, RouterView } from "vue-router/auto";
 import { routes, handleHotUpdate } from "vue-router/auto-routes";

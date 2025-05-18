@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { RouterView } from "vue-router";
-import TitleBar from "@/desktop/components/TitleBar.vue";
+import TitleBar from "@/platforms/desktop/components/TitleBar.vue";
 import Header from "@/components/Header.vue";
 
 const isDesktop = isRunAsDesktop();

@@ -20,6 +20,7 @@
     top: 0;
     right: 0;
     z-index: 10;
+    font-size: 1.5rem;
 
     & .logo {
         width: 16px;

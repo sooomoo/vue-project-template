@@ -1,5 +1,3 @@
-import { initDesktopEvents } from "@/desktop/events";
-
 export type OSType = "mac" | "win" | "linux" | "unknown";
 
 /**
@@ -41,24 +39,4 @@ export const getPlatform = (): Platform => {
         if (osType === "linux") return Platform.LINUX;
     }
     return Platform.BROWSER;
-};
-
-/**
- * 是否运行在桌面端
- * @returns {boolean} Whether the platform is desktop.
- */
-export const isRunAsDesktop = (): boolean => {
-    return getPlatform() !== Platform.BROWSER;
-};
-
-/**
- * 初始化平台
- */
-export const initPlatform = () => {
-    document.documentElement.setAttribute("data-platform", getPlatformName());
-
-    preventDocumentDefaultEvents();
-    if (isRunAsDesktop()) {
-        initDesktopEvents();
-    }
 };
