@@ -1,6 +1,6 @@
-@use "./reset.css";
-@use "./font.css";
-@use "./vars.scss";
+@import "./reset.css";
+@import "./font.css";
+@import "./vars.css";
 
 ::selection {
     background-color: var(--color-selection);
