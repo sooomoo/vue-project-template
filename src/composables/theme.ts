@@ -27,6 +27,24 @@ export const getThemeMode = (): ThemeMode => {
 };
 
 /**
+ * 如果是桌面环境，则改变一下窗口的主题模式
+ */
+const changeWindowTheme = async (theme: ThemeMode) => {
+    if (!isRunAsDesktop()) return;
+    const { WindowSetDarkTheme, WindowSetLightTheme, WindowSetSystemDefaultTheme } = await import(
+        "@/platforms/desktop/wailsjs/runtime/runtime"
+    );
+
+    if (theme === "dark") {
+        WindowSetDarkTheme();
+    } else if (theme === "light") {
+        WindowSetLightTheme();
+    } else {
+        WindowSetSystemDefaultTheme();
+    }
+};
+
+/**
  * 切换主题
  * @param theme 主题模式
  */
@@ -34,6 +52,7 @@ export const changeTheme = (theme: ThemeMode) => {
     try {
         const themeStorage = useLocalStorage<ThemeMode>("theme", "auto");
         themeStorage.value = theme;
+        changeWindowTheme(theme);
     } catch (error) {
         console.error("切换主题失败", error);
     }
