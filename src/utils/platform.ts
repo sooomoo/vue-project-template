@@ -1,3 +1,5 @@
+import { initDesktopEvents } from "@/desktop/events";
+
 export type OSType = "mac" | "win" | "linux" | "unknown";
 
 /**
@@ -54,4 +56,9 @@ export const isRunAsDesktop = (): boolean => {
  */
 export const initPlatform = () => {
     document.documentElement.setAttribute("data-platform", getPlatformName());
+
+    preventDocumentDefaultEvents();
+    if (isRunAsDesktop()) {
+        initDesktopEvents();
+    }
 };

@@ -6,7 +6,9 @@
 // biome-ignore lint: disable
 export {}
 declare global {
+  const AppEvent: typeof import('../composables/global')['AppEvent']
   const EffectScope: typeof import('vue')['EffectScope']
+  const EventBus: typeof import('../utils/eventbus')['EventBus']
   const Platform: typeof import('../utils/platform')['Platform']
   const acceptHMRUpdate: typeof import('pinia')['acceptHMRUpdate']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
@@ -134,6 +136,7 @@ declare global {
   const until: typeof import('@vueuse/core')['until']
   const useActiveElement: typeof import('@vueuse/core')['useActiveElement']
   const useAnimate: typeof import('@vueuse/core')['useAnimate']
+  const useAppEventBus: typeof import('../composables/global')['useAppEventBus']
   const useArrayDifference: typeof import('@vueuse/core')['useArrayDifference']
   const useArrayEvery: typeof import('@vueuse/core')['useArrayEvery']
   const useArrayFilter: typeof import('@vueuse/core')['useArrayFilter']
@@ -323,9 +326,15 @@ declare global {
   export type { Component, Slot, Slots, ComponentPublicInstance, ComputedRef, DirectiveBinding, ExtractDefaultPropTypes, ExtractPropTypes, ExtractPublicPropTypes, InjectionKey, PropType, Ref, MaybeRef, MaybeRefOrGetter, VNode, WritableComputedRef } from 'vue'
   import('vue')
   // @ts-ignore
+  export type { EventBus, EventBusListener } from '../utils/eventbus'
+  import('../utils/eventbus')
+  // @ts-ignore
   export type { Platform, OSType } from '../utils/platform'
   import('../utils/platform')
   // @ts-ignore
   export type { ThemeMode } from '../utils/theme'
   import('../utils/theme')
+  // @ts-ignore
+  export type { DropFilesEvent } from '../composables/global'
+  import('../composables/global')
 }

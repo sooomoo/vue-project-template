@@ -63,7 +63,7 @@ export default defineConfig({
         Layouts({
             layoutsDirs: "src/layouts", // 指定布局文件的目录路径
             defaultLayout: "default", // 指定默认布局文件的名称
-        }),
+        }) as never,
         AutoImport({
             imports: [
                 "vue",
