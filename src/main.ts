@@ -1,4 +1,4 @@
-import "./assets/main.css";
+import "./assets/styles/main.css";
 
 import { createRouter, createWebHistory, RouterView } from "vue-router";
 import { routes, handleHotUpdate } from "vue-router/auto-routes";
