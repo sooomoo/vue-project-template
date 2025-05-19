@@ -18,8 +18,10 @@ export const initApp = () => {
     preventDocumentDefaultEvents();
     initDesktopEvents(desktopEventsListener);
 
+    ensureSecurets();
+
     // client id，session id 的初始化
-    const cid = useLocalStorage("cid", "");
+    const cid = useLocalStorage("cli", "");
     if (cid.value.length !== 32) {
         cid.value = newUid();
     }

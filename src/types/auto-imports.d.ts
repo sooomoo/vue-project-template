@@ -7,6 +7,7 @@
 export {}
 declare global {
   const AppEvent: (typeof import("../composables/global"))["AppEvent"]
+  const DeadReason: typeof import('../utils/websocket')['DeadReason']
   const EffectScope: typeof import('vue')['EffectScope']
   const EventBus: typeof import('../utils/eventbus')['EventBus']
   const ExponentialRetryStrategy: typeof import('../utils/retry_strategy')['ExponentialRetryStrategy']
@@ -15,6 +16,8 @@ declare global {
   const acceptHMRUpdate: typeof import('pinia')['acceptHMRUpdate']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef']
+  const base64Decode: typeof import('../utils/security')['base64Decode']
+  const base64Encode: typeof import('../utils/security')['base64Encode']
   const callOncePromise: typeof import('../utils/async')['callOncePromise']
   const changeTheme: typeof import('../composables/theme')['changeTheme']
   const computed: typeof import('vue')['computed']
@@ -39,18 +42,23 @@ declare global {
   const debounce: typeof import('../utils/pref')['debounce']
   const debouncedRef: typeof import('@vueuse/core')['debouncedRef']
   const debouncedWatch: typeof import('@vueuse/core')['debouncedWatch']
+  const decodeSecureString: typeof import('../utils/security')['decodeSecureString']
   const defineAsyncComponent: typeof import('vue')['defineAsyncComponent']
   const defineComponent: typeof import('vue')['defineComponent']
   const defineStore: typeof import('pinia')['defineStore']
   const eagerComputed: typeof import('@vueuse/core')['eagerComputed']
   const effectScope: typeof import('vue')['effectScope']
+  const encodeSecureString: typeof import('../utils/security')['encodeSecureString']
+  const ensureSecurets: typeof import('../utils/security')['ensureSecurets']
   const extendRef: typeof import('@vueuse/core')['extendRef']
+  const generateUUID: typeof import('../utils/security')['generateUUID']
   const getActivePinia: typeof import('pinia')['getActivePinia']
   const getCurrentInstance: typeof import('vue')['getCurrentInstance']
   const getCurrentScope: typeof import('vue')['getCurrentScope']
   const getOSType: typeof import('../utils/platform')['getOSType']
   const getPlatform: typeof import('../utils/platform')['getPlatform']
   const getPlatformName: typeof import('../utils/platform')['getPlatformName']
+  const getSecuretsFromStorage: typeof import('../utils/security')['getSecuretsFromStorage']
   const getThemeMode: typeof import('../composables/theme')['getThemeMode']
   const h: typeof import('vue')['h']
   const ignorableWatch: typeof import('@vueuse/core')['ignorableWatch']
@@ -79,6 +87,10 @@ declare global {
   const mapWritableState: typeof import('pinia')['mapWritableState']
   const markRaw: typeof import('vue')['markRaw']
   const memoize: typeof import('../utils/pref')['memoize']
+  const newBoxKeyPair: typeof import('../utils/security')['newBoxKeyPair']
+  const newBoxKeyPairFromArray: typeof import('../utils/security')['newBoxKeyPairFromArray']
+  const newSignKeyPair: typeof import('../utils/security')['newSignKeyPair']
+  const newSignKeyPairFromArray: typeof import('../utils/security')['newSignKeyPairFromArray']
   const newUid: typeof import('../utils/uid')['newUid']
   const nextTick: typeof import('vue')['nextTick']
   const onActivated: typeof import('vue')['onActivated']
@@ -354,6 +366,12 @@ declare global {
   // @ts-ignore
   export type { ExponentialRetryStrategy, RetryStrategy } from '../utils/retry_strategy'
   import('../utils/retry_strategy')
+  // @ts-ignore
+  export type { Signer, Crypter, KeyPair, Secrets } from '../utils/security'
+  import('../utils/security')
+  // @ts-ignore
+  export type { DeadReason } from '../utils/websocket'
+  import('../utils/websocket')
   // @ts-ignore
   export type { DropFilesEvent } from '../composables/global'
   import('../composables/global')
