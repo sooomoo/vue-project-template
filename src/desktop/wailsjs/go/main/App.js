@@ -9,3 +9,7 @@ export function Greet(arg1) {
 export function Platform() {
   return window['go']['main']['App']['Platform']();
 }
+
+export function SetTheme(arg1) {
+  return window['go']['main']['App']['SetTheme'](arg1);
+}

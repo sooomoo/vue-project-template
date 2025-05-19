@@ -31,7 +31,7 @@
     --color-selection: #1068ff80;
 }
 :root[data-platform="web"][data-theme="light"] {
-    --color-background: #ffffff;
+    --color-background: rgb(240, 240, 240);
 }
 :root[data-platform="web"][data-theme="dark"] {
     --color-background: #282828;

@@ -31,17 +31,19 @@ export const getThemeMode = (): ThemeMode => {
  */
 const changeWindowTheme = async (theme: ThemeMode) => {
     if (isWeb()) return;
-    const { WindowSetDarkTheme, WindowSetLightTheme, WindowSetSystemDefaultTheme } = await import(
-        "@/desktop/wailsjs/runtime/runtime"
-    );
+    // const { WindowSetDarkTheme, WindowSetLightTheme, WindowSetSystemDefaultTheme } = await import(
+    //     "@/desktop/wailsjs/runtime/runtime"
+    // );
 
-    if (theme === "dark") {
-        WindowSetDarkTheme();
-    } else if (theme === "light") {
-        WindowSetLightTheme();
-    } else {
-        WindowSetSystemDefaultTheme();
-    }
+    // if (theme === "dark") {
+    //     WindowSetDarkTheme();
+    // } else if (theme === "light") {
+    //     WindowSetLightTheme();
+    // } else {
+    //     WindowSetSystemDefaultTheme();
+    // }
+    const { SetTheme } = await import("@/desktop/wailsjs/go/main/App");
+    SetTheme(theme);
 };
 
 /**

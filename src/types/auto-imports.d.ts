@@ -9,10 +9,13 @@ declare global {
   const AppEvent: (typeof import("../composables/global"))["AppEvent"]
   const EffectScope: typeof import('vue')['EffectScope']
   const EventBus: typeof import('../utils/eventbus')['EventBus']
+  const ExponentialRetryStrategy: typeof import('../utils/retry_strategy')['ExponentialRetryStrategy']
+  const LogLevel: typeof import('../utils/logger')['LogLevel']
   const Platform: typeof import('../utils/platform')['Platform']
   const acceptHMRUpdate: typeof import('pinia')['acceptHMRUpdate']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef']
+  const callOncePromise: typeof import('../utils/async')['callOncePromise']
   const changeTheme: typeof import('../composables/theme')['changeTheme']
   const computed: typeof import('vue')['computed']
   const computedAsync: typeof import('@vueuse/core')['computedAsync']
@@ -33,6 +36,7 @@ declare global {
   const createTemplatePromise: typeof import('@vueuse/core')['createTemplatePromise']
   const createUnrefFn: typeof import('@vueuse/core')['createUnrefFn']
   const customRef: typeof import('vue')['customRef']
+  const debounce: typeof import('../utils/pref')['debounce']
   const debouncedRef: typeof import('@vueuse/core')['debouncedRef']
   const debouncedWatch: typeof import('@vueuse/core')['debouncedWatch']
   const defineAsyncComponent: typeof import('vue')['defineAsyncComponent']
@@ -52,7 +56,7 @@ declare global {
   const ignorableWatch: typeof import('@vueuse/core')['ignorableWatch']
   const initApp: typeof import('../composables/init')['initApp']
   const initPlatform: typeof import('../utils/platform')['initPlatform']
-  const initTheme: typeof import('../composables/theme')['initTheme']
+  const initTheme: typeof import('../utils/theme')['initTheme']
   const inject: typeof import('vue')['inject']
   const injectLocal: typeof import('@vueuse/core')['injectLocal']
   const isDefined: typeof import('@vueuse/core')['isDefined']
@@ -66,6 +70,7 @@ declare global {
   const isRunAsDesktop: typeof import('../composables/global')['isRunAsDesktop']
   const isWeb: typeof import('../composables/global')['isWeb']
   const isWin: typeof import('../composables/global')['isWin']
+  const logger: typeof import('../utils/logger')['logger']
   const makeDestructurable: typeof import('@vueuse/core')['makeDestructurable']
   const mapActions: typeof import('pinia')['mapActions']
   const mapGetters: typeof import('pinia')['mapGetters']
@@ -73,6 +78,7 @@ declare global {
   const mapStores: typeof import('pinia')['mapStores']
   const mapWritableState: typeof import('pinia')['mapWritableState']
   const markRaw: typeof import('vue')['markRaw']
+  const memoize: typeof import('../utils/pref')['memoize']
   const newUid: typeof import('../utils/uid')['newUid']
   const nextTick: typeof import('vue')['nextTick']
   const onActivated: typeof import('vue')['onActivated']
@@ -121,6 +127,7 @@ declare global {
   const shallowReactive: typeof import('vue')['shallowReactive']
   const shallowReadonly: typeof import('vue')['shallowReadonly']
   const shallowRef: typeof import('vue')['shallowRef']
+  const sleep: typeof import('../utils/async')['sleep']
   const storeToRefs: typeof import('pinia')['storeToRefs']
   const syncRef: typeof import('@vueuse/core')['syncRef']
   const syncRefs: typeof import('@vueuse/core')['syncRefs']
@@ -138,6 +145,7 @@ declare global {
   const tryOnMounted: typeof import('@vueuse/core')['tryOnMounted']
   const tryOnScopeDispose: typeof import('@vueuse/core')['tryOnScopeDispose']
   const tryOnUnmounted: typeof import('@vueuse/core')['tryOnUnmounted']
+  const unixNow: typeof import('../utils/time')['unixNow']
   const unref: typeof import('vue')['unref']
   const unrefElement: typeof import('@vueuse/core')['unrefElement']
   const until: typeof import('@vueuse/core')['until']
@@ -338,8 +346,14 @@ declare global {
   export type { EventBus, EventBusListener } from '../utils/eventbus'
   import('../utils/eventbus')
   // @ts-ignore
+  export type { LogLevel } from '../utils/logger'
+  import('../utils/logger')
+  // @ts-ignore
   export type { Platform } from '../utils/platform'
   import('../utils/platform')
+  // @ts-ignore
+  export type { ExponentialRetryStrategy, RetryStrategy } from '../utils/retry_strategy'
+  import('../utils/retry_strategy')
   // @ts-ignore
   export type { DropFilesEvent } from '../composables/global'
   import('../composables/global')
