@@ -1,3 +1,11 @@
+/* :root {
+    --font-display: swap;
+}
+:root[data-platform="win"],
+:root[data-platform="mac"],
+:root[data-platform="linux"] {
+    --font-display: block;
+} */
 /* @font-face {
     font-family: 'MiSans';
     src: url(../fonts/MiSans-Thin.woff2) format('woff2');

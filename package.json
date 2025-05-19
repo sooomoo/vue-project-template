@@ -14,6 +14,11 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@juanelas/base64": "^1.1.5",
+    "@msgpack/msgpack": "^3.1.1",
+    "@noble/ciphers": "^1.3.0",
+    "@noble/curves": "^1.9.1",
+    "@noble/hashes": "^1.8.0",
     "@vueuse/core": "^13.2.0",
     "pinia": "^3.0.1",
     "vue": "^3.5.13",
