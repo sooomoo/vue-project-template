@@ -62,7 +62,7 @@ export abstract class WebSocketClientBase {
     }
 
     private closeNormally?: boolean;
-    private reconnectTimer?: number;
+    private reconnectTimer?: NodeJS.Timeout;
     private reconnect() {
         if (this.closeNormally === true || this.reconnectStrategy === undefined) return;
         clearInterval(this.heartbeatTimer);
@@ -82,7 +82,7 @@ export abstract class WebSocketClientBase {
         this.onWillReconnect(dur);
     }
 
-    private heartbeatTimer?: number;
+    private heartbeatTimer?: NodeJS.Timeout;
     private onConnectedInternal() {
         this.reconnectStrategy?.reset();
         // start heartbeat

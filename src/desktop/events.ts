@@ -1,3 +1,5 @@
+import { EventsOn, OnFileDrop } from "./wailsjs/runtime/runtime";
+
 export interface DesktopEventsListener {
     secondLaunchCallback: (args: string[]) => void;
     dropFilesCallback: (x: number, y: number, files: string[]) => void;
@@ -5,7 +7,6 @@ export interface DesktopEventsListener {
 
 export const initDesktopEvents = async (listener?: DesktopEventsListener) => {
     if (getPlatform() === "web") return;
-    const { EventsOn, OnFileDrop } = await import("./wailsjs/runtime/runtime");
 
     EventsOn("secondLaunchArgs", (args: string[]) => {
         listener?.secondLaunchCallback?.(args);

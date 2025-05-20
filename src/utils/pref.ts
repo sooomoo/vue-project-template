@@ -8,7 +8,7 @@ export const debounce = <TArgs extends unknown[], TResult>(
     func: (...args: TArgs) => TResult,
     delayMs: number,
 ) => {
-    let timeout: number | undefined;
+    let timeout: NodeJS.Timeout | undefined;
     return (...args: TArgs) => {
         clearTimeout(timeout);
         timeout = setTimeout(() => func(...args), delayMs);

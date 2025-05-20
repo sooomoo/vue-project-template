@@ -1,3 +1,4 @@
+import { SetTheme } from "@/desktop/wailsjs/go/main/App";
 const darkModeQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
 export type ThemeMode = "light" | "dark" | "auto";
@@ -31,18 +32,6 @@ export const getThemeMode = (): ThemeMode => {
  */
 const changeWindowTheme = async (theme: ThemeMode) => {
     if (isWeb()) return;
-    // const { WindowSetDarkTheme, WindowSetLightTheme, WindowSetSystemDefaultTheme } = await import(
-    //     "@/desktop/wailsjs/runtime/runtime"
-    // );
-
-    // if (theme === "dark") {
-    //     WindowSetDarkTheme();
-    // } else if (theme === "light") {
-    //     WindowSetLightTheme();
-    // } else {
-    //     WindowSetSystemDefaultTheme();
-    // }
-    const { SetTheme } = await import("@/desktop/wailsjs/go/main/App");
     SetTheme(theme);
 };
 
