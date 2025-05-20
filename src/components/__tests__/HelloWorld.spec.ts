@@ -1,11 +1,11 @@
 import { describe, it, expect } from "vitest";
 
 import { mount } from "@vue/test-utils";
-import HelloWorld from "../HelloWorld.vue";
+import FilesDropTarget from "../FilesDropTarget.vue";
 
-describe("HelloWorld", () => {
+describe("FilesDropTarget", () => {
     it("renders properly", () => {
-        const wrapper = mount(HelloWorld, { props: { msg: "Hello Vitest" } });
+        const wrapper = mount(FilesDropTarget, { props: { supportDesktop: true } });
         expect(wrapper.text()).toContain("Hello Vitest");
     });
 });
