@@ -13,6 +13,7 @@ declare global {
   const ExponentialRetryStrategy: typeof import('../utils/retry_strategy')['ExponentialRetryStrategy']
   const LogLevel: typeof import('../utils/logger')['LogLevel']
   const Platform: typeof import('../utils/platform')['Platform']
+  const RespCode: typeof import('../composables/codes')['RespCode']
   const acceptHMRUpdate: typeof import('pinia')['acceptHMRUpdate']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef']
@@ -372,6 +373,9 @@ declare global {
   // @ts-ignore
   export type { DeadReason } from '../utils/websocket'
   import('../utils/websocket')
+  // @ts-ignore
+  export type { RespCode, ResponseDto } from '../composables/codes'
+  import('../composables/codes')
   // @ts-ignore
   export type { DropFilesEvent } from '../composables/global'
   import('../composables/global')
