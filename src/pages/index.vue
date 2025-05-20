@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import HelloWorld from '../components/HelloWorld.vue';
+import FilesDropTarget from "../components/FilesDropTarget.vue";
 
 const counterStore = useCounterStore();
 const onClick = () => {
@@ -14,28 +14,22 @@ bus.on("secondLaunchArgs", (args) => {
     console.log(args);
 });
 
-const dropFiles = reactive(new Array<string>());
-bus.on("dropFiles", (evt) => {
-    console.log(evt);
-    dropFiles.push(...evt.files);
-});
+const dropFiles = reactive<Array<string | File>>([]);
 
-const onDragOver = (evt: DragEvent) => {
-    if (!evt.dataTransfer) return;
-    evt.dataTransfer.dropEffect = "copy";
+const handleChange = (files: Array<string | File>) => {
+    dropFiles.push(...files);
 };
 </script>
 
 <template>
-    <HelloWorld msg="You did it!" />
     <button @click="onClick">Increment</button>
     <p>Count is: {{ counterStore.count }}</p>
     <p>isDesktop: {{ isDesk }}</p>
-    <div class="main__drop-area wails-drop-target-active drop-target" @dragover.prevent.stop="onDragOver">
+    <FilesDropTarget class="main__drop-area" @change="handleChange">
         drop in
-    </div>
-    <div v-for="file in dropFiles" :key="file">
-        {{ file }}
+    </FilesDropTarget>
+    <div v-for="file in dropFiles" :key="typeof file === 'string' ? file : file.name">
+        {{ typeof file === 'string' ? file : file.name }}
     </div>
 </template>
 
