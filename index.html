@@ -26,11 +26,38 @@
                 width: 400px;
                 height: auto;
             }
+            .app-splash-fade-in {
+                animation: appSplashFadeInKF 0.3s ease-in-out forwards;
+            }
+            .app-splash-fade-out {
+                animation: appSplashFadeOutKF 0.3s ease-in-out forwards;
+            }
+            @keyframes appSplashFadeInKF {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            @keyframes appSplashFadeOutKF {
+                from {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+                to {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+            }
         </style>
     </head>
     <body>
         <div id="app"></div>
-        <div id="app-splash">
+        <div id="app-splash" class="app-splash-fade-in">
             <svg height="1024" viewBox="0 0 1024 1024" width="1024">
                 <g>
                     <path
