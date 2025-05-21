@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import FilesDropTarget from "../components/FilesDropTarget.vue";
+import FilesDropTarget from "@/components/FilesDropTarget.vue";
 
 const counterStore = useCounterStore();
 const onClick = () => {
