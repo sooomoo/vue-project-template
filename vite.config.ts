@@ -7,7 +7,6 @@ import AutoImport from "unplugin-auto-import/vite";
 import VueRouter from "unplugin-vue-router/vite";
 import { VueRouterAutoImports } from "unplugin-vue-router";
 import Layouts from "vite-plugin-vue-layouts";
-import mkcert from 'vite-plugin-mkcert';
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -19,7 +18,6 @@ export default defineConfig({
         }
     },
     plugins: [
-        mkcert(),
         VueRouter({
             routesFolder: [
                 {
