@@ -7,11 +7,19 @@ import AutoImport from "unplugin-auto-import/vite";
 import VueRouter from "unplugin-vue-router/vite";
 import { VueRouterAutoImports } from "unplugin-vue-router";
 import Layouts from "vite-plugin-vue-layouts";
+import mkcert from 'vite-plugin-mkcert';
 
 // https://vite.dev/config/
 export default defineConfig({
     appType: "spa",
+    server: {
+        https: {
+            cert: 'E:\\mkcert\\vite\\localhost+1.pem',
+            key: 'E:\\mkcert\\vite\\localhost+1-key.pem',
+        }
+    },
     plugins: [
+        mkcert(),
         VueRouter({
             routesFolder: [
                 {
