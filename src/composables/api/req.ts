@@ -10,6 +10,7 @@ import type {
 } from "axios";
 import axios from "axios";
 import axiosRetry from "axios-retry";
+import { gotoLoginPage } from "@/router";
 
 const signHeaderTimestamp = "x-timestamp";
 const signHeaderNonce = "x-nonce";
@@ -123,6 +124,13 @@ class SecureRequest {
             path: path,
             query: strQuery,
         };
+        // 如果不是 web 平台
+        if (getPlatformId() !== "8") {
+            const auth = localStorage.getItem("access_token");
+            const authValue = auth ? "Bearer " + auth : "";
+            signData["authorization"] = authValue;
+            config.headers.set("authorization", authValue);
+        }
 
         // 1. 加密请求体（仅针对 POST/PUT 请求）
         if (
@@ -238,13 +246,9 @@ class SecureRequest {
     public async request<T = any>(config: SecureRequestConfig) {
         const log = logger.tag("request");
         log.newlines("\n\n");
-        let redirect = "";
         const pagePath = window.location.pathname + window.location.search;
-        redirect =
-            pagePath === "/" || pagePath.startsWith("/login")
-                ? ""
-                : `?redirect=${encodeURIComponent(pagePath)}`;
-        log.debug("redirect path is :", redirect, pagePath);
+        const redirectPath = pagePath === "/" || pagePath.startsWith("/login") ? "" : pagePath;
+        log.debug("redirect path is :", redirectPath, pagePath);
 
         try {
             const response = await this.instance.request<T>(config);
@@ -269,7 +273,7 @@ class SecureRequest {
                     logger.error("401 错误处理失败", e);
                     // token刷新失败，重定向到登录页
                     if (this.isStatusError(error, 401) && !pagePath.startsWith("/login")) {
-                        window.location.replace(import.meta.env.VITE_LOGIN_PAGE + redirect);
+                        gotoLoginPage(redirectPath);
                     }
                 }
             }

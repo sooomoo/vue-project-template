@@ -1,3 +1,5 @@
+import { gotoLoginPage } from "@/router";
+
 export interface LoginParam {
     countryCode: string; // 国家码，如 +86
     phone: string; // 手机号
@@ -13,6 +15,11 @@ export interface PrepareLoginResponse {
     imageData: string;
 }
 
+export interface AuthResponse {
+    accessToken: string;
+    refreshToken: string;
+}
+
 const authLogger = logger.tag("ApiAuth");
 
 export const apiAuth = {
@@ -22,9 +29,23 @@ export const apiAuth = {
         );
     },
     login: async (param: LoginParam) => {
-        authLogger.debug("login param", param);
-        const res = await secureRequest.post<ResponseDto<null>>("/v1/auth/login/do", param);
+        const headers = getPlatform() === "web" ? {} : { "x-csrf": param.csrfToken };
+        authLogger.debug("login param", param, headers);
+        const res = await secureRequest.post<ResponseDto<AuthResponse>>(
+            "/v1/auth/login/do",
+            param,
+            {
+                headers: headers,
+            },
+        );
         if (res.code === RespCode.succeed) {
+            authLogger.debug("login success", res.data);
+            try {
+                localStorage.setItem("access_token", res.data.accessToken);
+                localStorage.setItem("refresh_token", res.data.refreshToken);
+            } catch (e) {
+                authLogger.error("保存登录状态到 localStorage 失败", e);
+            }
             openWebSocket();
         }
 
@@ -39,11 +60,6 @@ export const apiAuth = {
             return; // 不需要重定向到登录页，直接返回
         }
         const pagePath = window.location.pathname + window.location.search;
-        const target =
-            import.meta.env.VITE_LOGIN_PAGE + `?redirect=${encodeURIComponent(pagePath)}`;
-        await useRouter().replace({
-            path: target,
-            replace: true,
-        });
+        gotoLoginPage(pagePath);
     },
 };

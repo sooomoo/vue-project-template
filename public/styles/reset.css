@@ -394,3 +394,8 @@ body {
     padding: 0;
     background: transparent;
 }
+
+pre {
+    font-family: Hack, monospace;
+    font-size: inherit;
+}

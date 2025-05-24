@@ -405,7 +405,7 @@ declare global {
   export type { DeadReason } from '../utils/websocket'
   import('../utils/websocket')
   // @ts-ignore
-  export type { LoginParam, LoginStatus, PrepareLoginResponse } from '../composables/api/api_auth'
+  export type { LoginParam, LoginStatus, PrepareLoginResponse, AuthResponse } from '../composables/api/api_auth'
   import('../composables/api/api_auth')
   // @ts-ignore
   export type { GetUserInfoResponse } from '../composables/api/api_user'

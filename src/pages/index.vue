@@ -5,6 +5,7 @@ const counterStore = useCounterStore();
 const onClick = () => {
     counterStore.increment();
 };
+const authStore = useAuthStore();
 
 const isDesk = isDesktop();
 
@@ -25,6 +26,7 @@ const handleChange = (files: Array<string | File>) => {
     <button @click="onClick">Increment</button>
     <p>Count is: {{ counterStore.count }}</p>
     <p>isDesktop: {{ isDesk }}</p>
+    <pre>{{ authStore.user }}</pre>
     <FilesDropTarget class="main__drop-area" @change="handleChange"> drop in </FilesDropTarget>
     <div v-for="file in dropFiles" :key="typeof file === 'string' ? file : file.name">
         {{ typeof file === "string" ? file : file.name }}

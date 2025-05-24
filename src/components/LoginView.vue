@@ -155,7 +155,7 @@ const handleSubmit = async () => {
     }
 
     .img-code {
-        width: auto;
+        width: 80px;
         height: 40px;
         background-color: #00000010;
         border-radius: 4px;
