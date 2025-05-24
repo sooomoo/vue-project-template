@@ -13,6 +13,8 @@ export interface PrepareLoginResponse {
     imageData: string;
 }
 
+const authLogger = logger.tag("ApiAuth");
+
 export const apiAuth = {
     prepareLogin: async () => {
         return await secureRequest.post<ResponseDto<PrepareLoginResponse>>(
@@ -20,6 +22,7 @@ export const apiAuth = {
         );
     },
     login: async (param: LoginParam) => {
+        authLogger.debug("login param", param);
         const res = await secureRequest.post<ResponseDto<null>>("/v1/auth/login/do", param);
         if (res.code === RespCode.succeed) {
             openWebSocket();

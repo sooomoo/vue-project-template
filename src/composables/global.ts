@@ -23,3 +23,11 @@ export const isDesktop = () => getPlatform() !== "web";
 export const isMac = () => getPlatform() === "mac";
 export const isWin = () => getPlatform() === "win";
 export const isLinux = () => getPlatform() === "linux";
+
+export const getClientId = () => {
+    const cid = useLocalStorage("cli", "");
+    if (cid.value.length !== 32) {
+        cid.value = newUid();
+    }
+    return cid.value;
+};

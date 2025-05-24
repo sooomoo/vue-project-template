@@ -11,12 +11,12 @@ import Layouts from "vite-plugin-vue-layouts";
 // https://vite.dev/config/
 export default defineConfig({
     appType: "spa",
-    server: {
-        https: {
-            cert: "E:\\mkcert\\vite\\localhost+1.pem",
-            key: "E:\\mkcert\\vite\\localhost+1-key.pem",
-        },
-    },
+    // server: {
+    //     https: {
+    //         cert: "E:\\mkcert\\vite\\localhost+1.pem",
+    //         key: "E:\\mkcert\\vite\\localhost+1-key.pem",
+    //     },
+    // },
     plugins: [
         VueRouter({
             routesFolder: [

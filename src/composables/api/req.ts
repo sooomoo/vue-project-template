@@ -16,8 +16,9 @@ const signHeaderNonce = "x-nonce";
 const signHeaderSignature = "x-signature";
 const signHeaderPlatform = "x-platform";
 const signHeaderSession = "x-session";
-const headerRawType = "x-raw-type";
-const contentTypeEncrypted = "application/x-encrypted;charset=utf-8";
+const headerRawType = "x-rawtype";
+const headerClientId = "x-client";
+const contentTypeEncrypted = "application/x-encrypted";
 
 let _platform = "";
 const getPlatformId = () => {
@@ -48,7 +49,7 @@ export interface HttpOptions {
 }
 
 export interface SecureRequestConfig<D = any> extends AxiosRequestConfig<D> {
-    authHandle401?: boolean; // 是否自动处理 401 错误
+    autoHandle401?: boolean; // 是否自动处理 401 错误
 }
 
 class SecureRequest {
@@ -97,11 +98,9 @@ class SecureRequest {
      * 请求拦截器核心逻辑
      */
     private async requestInterceptor(config: InternalAxiosRequestConfig<any>) {
-        const { method: methodRaw, url, data: body } = config;
+        const { method: methodRaw, url: path, data: body } = config;
         const method = methodRaw?.toLowerCase() ?? "";
-        const path = url?.replace(import.meta.env.VITE_API_BASE_URL, "") || "";
         const log = logger.tag(method + " " + path + " request");
-        log.debug("request url is: ", url);
 
         const secrets = getSecuretsFromStorage();
         if (!secrets) {
@@ -126,16 +125,17 @@ class SecureRequest {
         };
 
         // 1. 加密请求体（仅针对 POST/PUT 请求）
-        if (body && ["post", "put"].includes(method)) {
-            let reqData = "";
+        if (
+            body &&
+            ["post", "put"].includes(method) &&
+            import.meta.env.VITE_ENABLE_CRYPTO === "true"
+        ) {
+            config.headers.set("content-type", contentTypeEncrypted); // 设置请求头
             // 先加密
-            reqData = JSON.stringify(body);
-            if (import.meta.env.VITE_ENABLE_CRYPTO === "true") {
-                reqData = useEncrypt(boxKeyPair, reqData);
-                config.data = reqData; // 替换原始数据为加密后的数据
-            }
+            let reqData = JSON.stringify(body);
+            reqData = useEncrypt(boxKeyPair, reqData);
+            config.data = reqData; // 替换原始数据为加密后的数据
             signData["body"] = reqData;
-            config.headers.set("Content-Type", contentTypeEncrypted); // 设置请求头
         }
 
         // 2. 签名请求体（包括请求头和请求体）
@@ -147,10 +147,8 @@ class SecureRequest {
         config.headers.set(signHeaderTimestamp, timestamp);
         config.headers.set(signHeaderNonce, nonce);
         config.headers.set(signHeaderSignature, reqSignature);
-        log.debug("request sign data is: \n", signData);
-        log.debug("request sign is: \n", reqSignature);
-        log.debug("request headers are: \n", config.headers);
-        log.debug("request data is: \n", config.data);
+        config.headers.set(headerClientId, getClientId());
+        log.debug("request is: \n", config);
 
         return config;
     }
@@ -167,14 +165,13 @@ class SecureRequest {
             logger.error("获取会话密钥失败");
             throw new Error("获取会话密钥失败");
         }
-        const { boxKeyPair } = secrets;
+        const { boxKeyPair, sessionId } = secrets;
 
         const { method: methodRaw, url } = response.config;
-        const method = methodRaw?.toLowerCase() ?? "";
+        const method = methodRaw?.toUpperCase() ?? "";
         const path = url?.replace(import.meta.env.VITE_API_BASE_URL, "") || "";
         const log = logger.tag(method + " " + path + " response");
-
-        const sessionId = response.config.headers[signHeaderSession];
+        log.debug("response :", response);
         const strQuery = response.config.params ? stringifyObj(response.config.params) : "";
 
         const respTimestamp = response.headers[signHeaderTimestamp] ?? "";
@@ -191,30 +188,33 @@ class SecureRequest {
             query: strQuery,
             body: respData,
         });
+        // log.debug("response sign data is: \n", respStr);
 
         if (!useSignVerify(respStr, respSignature)) {
             log.warn(`【FAILED】签名验证失败`, respData);
             throw new Error("签名验证失败");
         }
 
-        const contentType = response.headers["Content-Type"] ?? "";
-        if (contentType == contentTypeEncrypted) {
+        const contentType = (response.headers["content-type"] as string) ?? "";
+        if (contentType.startsWith(contentTypeEncrypted)) {
             respData = useDecrypt(boxKeyPair, respData);
             response.data = respData; // 替换原始数据为解密后的数据
-            log.debug("response data is: \n", respData);
             const rawType = (response.headers[headerRawType] as string | undefined) ?? "";
             if (rawType) {
                 response.headers["Content-Type"] = rawType; // 恢复原始 Content-Type
-                // if (rawType.startsWith("application/json")) {
-                //     try {
-                //         response.data = JSON.parse(respData);
-                //     } catch (e) {
-                //         log.error("解密后数据解析失败", respData, e);
-                //         throw new Error("解密后数据解析失败");
-                //     }
-                // }
+                if (rawType.startsWith("application/json")) {
+                    try {
+                        response.data = JSON.parse(respData);
+                    } catch (e) {
+                        log.error("解密后JSON.parse失败", respData, e);
+                        throw new Error("解密后JSON.parse失败");
+                    }
+                }
             }
         }
+
+        log.debug("response body:", response.data);
+
         return response;
     }
 
@@ -244,13 +244,13 @@ class SecureRequest {
             pagePath === "/" || pagePath.startsWith("/login")
                 ? ""
                 : `?redirect=${encodeURIComponent(pagePath)}`;
-        log.debug("redirect path is :", redirect);
+        log.debug("redirect path is :", redirect, pagePath);
 
         try {
             const response = await this.instance.request<T>(config);
             return response.data;
         } catch (error) {
-            if (this.isStatusError(error, 401) && (config.authHandle401 ?? true)) {
+            if (this.isStatusError(error, 401) && (config.autoHandle401 ?? true)) {
                 const refLog = logger.tag(`Handle 401: ${config.method} ${config.url}`);
                 try {
                     refLog.newlines("\n");
@@ -268,11 +268,8 @@ class SecureRequest {
                 } catch (e) {
                     logger.error("401 错误处理失败", e);
                     // token刷新失败，重定向到登录页
-                    if (this.isStatusError(error, 401)) {
-                        await useRouter().replace({
-                            path: import.meta.env.VITE_LOGIN_URL + pagePath,
-                            replace: true,
-                        });
+                    if (this.isStatusError(error, 401) && !pagePath.startsWith("/login")) {
+                        window.location.replace(import.meta.env.VITE_LOGIN_PAGE + redirect);
                     }
                 }
             }

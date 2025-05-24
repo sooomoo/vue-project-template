@@ -27,6 +27,10 @@ router.afterEach(() => {
     const appSplash = document.getElementById("app-splash");
     if (appSplash) {
         appSplash.className = "app-splash-fade-out";
-        setTimeout(appSplash.remove, 300);
+        setTimeout(() => appSplash.remove(), 300);
     }
 });
+
+startWebSocket();
+openWebSocket();
+useAuthStore().getUserInfo();

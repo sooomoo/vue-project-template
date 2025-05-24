@@ -18,17 +18,25 @@
     --color-titlebar-btn-close-hover: #ff000080;
     --color-card-background: #ffffffcc;
     --color-selection: #1068ff80;
+    --color-primary: #1068ff;
+    --color-primary-50: #1068ff80;
+    --color-placeholder: #0004;
 }
 :root[data-theme="dark"] {
     --color-scrollbar-thumb: #444;
     --color-scrollbar-thumb-hover: #555;
     --color-background: transparent;
-    --color-text: #ffffff;
     --color-titlebar-btn-back: #ffffff00;
     --color-titlebar-btn-back-hover: #ffffff20;
     --color-titlebar-btn-close-hover: #ff0000a0;
     --color-card-background: #88888820;
     --color-selection: #1068ff80;
+    --color-header-background: #222b;
+    --color-input-background: #222b;
+    --color-text: #eee;
+    --color-primary: #1068ff;
+    --color-primary-50: #1068ff80;
+    --color-placeholder: #fff4;
 }
 :root[data-platform="web"][data-theme="light"] {
     --color-background: rgb(240, 240, 240);

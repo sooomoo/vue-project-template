@@ -8,11 +8,17 @@ export interface GetUserInfoResponse {
 
 class ApiUser {
     private readonly _getUserInfoOnce = callOncePromise(async () => {
-        return await useGet<ResponseDto<GetUserInfoResponse>>("/v1/user/info");
+        return await secureRequest.get<ResponseDto<GetUserInfoResponse>>("/v1/user/info");
     });
 
     getUserInfo() {
         return this._getUserInfoOnce();
+    }
+
+    async getUserInfoWithoutRedirect() {
+        return await secureRequest.get<ResponseDto<GetUserInfoResponse>>("/v1/user/info", {
+            autoHandle401: false, // 不处理401错误
+        });
     }
 }
 

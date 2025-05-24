@@ -21,8 +21,6 @@ export const initApp = () => {
     ensureSecurets();
 
     // client id，session id 的初始化
-    const cid = useLocalStorage("cli", "");
-    if (cid.value.length !== 32) {
-        cid.value = newUid();
-    }
+    const cid = getClientId();
+    logger.debug("client id", cid);
 };
