@@ -19,7 +19,24 @@ const signHeaderSession = "x-session";
 const headerRawType = "x-raw-type";
 const contentTypeEncrypted = "application/x-encrypted;charset=utf-8";
 
-const platform = "8";
+let _platform = "";
+const getPlatformId = () => {
+    if (_platform.length > 0) {
+        return _platform;
+    }
+
+    _platform = "8";
+    const pla = getPlatform();
+    if (pla === "mac") {
+        _platform = "4";
+    } else if (pla === "win") {
+        _platform = "6";
+    } else if (pla === "linux") {
+        _platform = "7";
+    }
+
+    return _platform; // web 平台
+};
 
 export interface HttpOptions {
     cacheKey?: string;
@@ -102,7 +119,7 @@ class SecureRequest {
             session: sessionId,
             nonce: nonce,
             timestamp: timestamp,
-            platform: platform,
+            platform: getPlatformId(),
             method: method?.toUpperCase(),
             path: path,
             query: strQuery,
@@ -125,7 +142,7 @@ class SecureRequest {
         const reqSignature = useSignData(signKeyPair, stringifyObj(signData));
 
         // 3. 附加安全相关请求头
-        config.headers.set(signHeaderPlatform, platform);
+        config.headers.set(signHeaderPlatform, getPlatformId());
         config.headers.set(signHeaderSession, sessionId);
         config.headers.set(signHeaderTimestamp, timestamp);
         config.headers.set(signHeaderNonce, nonce);
@@ -167,7 +184,7 @@ class SecureRequest {
         const respStr = stringifyObj({
             session: sessionId,
             nonce: respNonce,
-            platform: platform,
+            platform: getPlatformId(),
             timestamp: respTimestamp,
             method: method,
             path: path,

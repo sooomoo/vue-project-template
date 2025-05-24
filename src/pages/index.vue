@@ -25,11 +25,9 @@ const handleChange = (files: Array<string | File>) => {
     <button @click="onClick">Increment</button>
     <p>Count is: {{ counterStore.count }}</p>
     <p>isDesktop: {{ isDesk }}</p>
-    <FilesDropTarget class="main__drop-area" @change="handleChange">
-        drop in
-    </FilesDropTarget>
+    <FilesDropTarget class="main__drop-area" @change="handleChange"> drop in </FilesDropTarget>
     <div v-for="file in dropFiles" :key="typeof file === 'string' ? file : file.name">
-        {{ typeof file === 'string' ? file : file.name }}
+        {{ typeof file === "string" ? file : file.name }}
     </div>
 </template>
 

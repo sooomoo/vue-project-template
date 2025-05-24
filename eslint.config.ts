@@ -14,12 +14,9 @@ export default defineConfigWithVueTs(
         name: "app/files-to-lint",
         files: ["**/*.{ts,mts,tsx,vue}"],
     },
-
     globalIgnores(["**/dist/**", "**/dist-ssr/**", "**/coverage/**", "**/wailsjs/**"]),
-
-    pluginVue.configs["flat/essential"],
-    vueTsConfigs.recommended,
-
+    pluginVue.configs["flat/recommended"],
+    vueTsConfigs["recommended"],
     {
         ...pluginVitest.configs.recommended,
         files: ["src/**/__tests__/*"],
@@ -32,9 +29,8 @@ export default defineConfigWithVueTs(
                 "error",
                 4,
                 {
-                    // 2 空格缩进
-                    SwitchCase: 1, // case 子句缩进 1 级（2 空格）
-                    ignoredNodes: ["TemplateLiteral", "TemplateElement", "StyleElement"],
+                    baseIndent: 0, // 顶层代码缩进基数（设置为 1 时，顶层代码缩进 2 空格）
+                    switchCase: 1, // case 子句缩进 1 级（2 空格）
                 },
             ],
             "@typescript-eslint/no-unused-vars": "error", // 关闭未使用变量检查
@@ -45,13 +41,21 @@ export default defineConfigWithVueTs(
             "no-debugger": "warn", // 允许 debugger 语句
 
             // ----- Vue 专用规则 -----
-            "vue/multi-word-component-names": [
-                // 组件名必须多单词
-                "off",
+            // https://eslint.vuejs.org/rules/no-useless-template-attributes.html
+            //  配置 Vue <script> 标签内的缩进规则
+            "vue/script-indent": [
+                "error",
+                2,
                 {
-                    ignores: ["Index", "Header", "App", "pages/**"], // 允许例外的组件名
+                    baseIndent: 0,
+                    switchCase: 0,
+                    ignores: [],
                 },
             ],
+            "vue/block-lang": "error",
+            "vue/multi-word-component-names": "off", // 允许组件名不使用多词命名
+            "vue/no-arrow-functions-in-watch": "error", // 禁止在 watch 中使用箭头函数
+            "vue/no-async-in-computed-properties": "error", // 禁止在计算属性中使用 async
             "vue/no-multiple-template-root": "off", // 允许多个根节点
             "vue/no-unused-vars": "error", // 关闭 Vue 未使用变量检查
             "vue/no-template-shadow": "warn", // 允许模板变量遮蔽

@@ -15,13 +15,20 @@ declare global {
   const PacketProtocol: typeof import('../utils/bytes/packet')['PacketProtocol']
   const Platform: typeof import('../utils/platform')['Platform']
   const RespCode: typeof import('../composables/codes')['RespCode']
+  const WebSocketClient: typeof import('../composables/workers/websocket_worker')['WebSocketClient']
+  const WebSocketCmdClose: typeof import('../composables/workers/websocket_cmd')['WebSocketCmdClose']
+  const WebSocketCmdConnect: typeof import('../composables/workers/websocket_cmd')['WebSocketCmdConnect']
+  const WebSocketMsgType: typeof import('../composables/workers/websocket_cmd')['WebSocketMsgType']
   const acceptHMRUpdate: typeof import('pinia')['acceptHMRUpdate']
+  const apiAuth: typeof import('../composables/api/api_auth')['apiAuth']
+  const apiUser: typeof import('../composables/api/api_user')['apiUser']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef']
   const base64Decode: typeof import('../utils/security')['base64Decode']
   const base64Encode: typeof import('../utils/security')['base64Encode']
   const callOncePromise: typeof import('../utils/async')['callOncePromise']
   const changeTheme: typeof import('../composables/theme')['changeTheme']
+  const closeWebSocket: typeof import('../composables/workers/websocket')['closeWebSocket']
   const computed: typeof import('vue')['computed']
   const computedAsync: typeof import('@vueuse/core')['computedAsync']
   const computedEager: typeof import('@vueuse/core')['computedEager']
@@ -69,6 +76,7 @@ declare global {
   const initTheme: typeof import('../utils/theme')['initTheme']
   const inject: typeof import('vue')['inject']
   const injectLocal: typeof import('@vueuse/core')['injectLocal']
+  const isConnectCmd: typeof import('../composables/workers/websocket_cmd')['isConnectCmd']
   const isDefined: typeof import('@vueuse/core')['isDefined']
   const isDesktop: typeof import('../composables/global')['isDesktop']
   const isLinux: typeof import('../composables/global')['isLinux']
@@ -118,7 +126,10 @@ declare global {
   const onUnmounted: typeof import('vue')['onUnmounted']
   const onUpdated: typeof import('vue')['onUpdated']
   const onWatcherCleanup: typeof import('vue')['onWatcherCleanup']
+  const onWebSocketMessage: typeof import('../composables/workers/websocket')['onWebSocketMessage']
+  const openWebSocket: typeof import('../composables/workers/websocket')['openWebSocket']
   const pausableWatch: typeof import('@vueuse/core')['pausableWatch']
+  const postMessageToWebSocket: typeof import('../composables/workers/websocket')['postMessageToWebSocket']
   const preventDocumentDefaultEvents: typeof import('../utils/prevent_defaults')['preventDocumentDefaultEvents']
   const provide: typeof import('vue')['provide']
   const provideLocal: typeof import('@vueuse/core')['provideLocal']
@@ -138,12 +149,14 @@ declare global {
   const resolveComponent: typeof import('vue')['resolveComponent']
   const resolveRef: typeof import('@vueuse/core')['resolveRef']
   const resolveUnref: typeof import('@vueuse/core')['resolveUnref']
+  const secureRequest: typeof import('../composables/api/req')['secureRequest']
   const setActivePinia: typeof import('pinia')['setActivePinia']
   const setMapStoreSuffix: typeof import('pinia')['setMapStoreSuffix']
   const shallowReactive: typeof import('vue')['shallowReactive']
   const shallowReadonly: typeof import('vue')['shallowReadonly']
   const shallowRef: typeof import('vue')['shallowRef']
   const sleep: typeof import('../utils/async')['sleep']
+  const startWebSocket: typeof import('../composables/workers/websocket')['startWebSocket']
   const storeToRefs: typeof import('pinia')['storeToRefs']
   const stringifyObj: typeof import('../composables/core/sign')['stringifyObj']
   const syncRef: typeof import('@vueuse/core')['syncRef']
@@ -390,8 +403,14 @@ declare global {
   export type { DeadReason } from '../utils/websocket'
   import('../utils/websocket')
   // @ts-ignore
-  export type { HttpOptions } from '../composables/api/http'
-  import('../composables/api/http')
+  export type { LoginParam, LoginStatus, PrepareLoginResponse } from '../composables/api/api_auth'
+  import('../composables/api/api_auth')
+  // @ts-ignore
+  export type { GetUserInfoResponse } from '../composables/api/api_user'
+  import('../composables/api/api_user')
+  // @ts-ignore
+  export type { HttpOptions, SecureRequestConfig } from '../composables/api/req'
+  import('../composables/api/req')
   // @ts-ignore
   export type { RespCode, ResponseDto } from '../composables/codes'
   import('../composables/codes')
@@ -401,4 +420,10 @@ declare global {
   // @ts-ignore
   export type { ThemeMode } from '../composables/theme'
   import('../composables/theme')
+  // @ts-ignore
+  export type { WebSocketMsgType, WebSocketCmd, IWebSocketCmd, WebSocketConnectCmdData } from '../composables/workers/websocket_cmd'
+  import('../composables/workers/websocket_cmd')
+  // @ts-ignore
+  export type { WebSocketClient } from '../composables/workers/websocket_worker'
+  import('../composables/workers/websocket_worker')
 }
