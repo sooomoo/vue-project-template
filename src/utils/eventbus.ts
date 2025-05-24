@@ -16,9 +16,7 @@ export class EventBus<TEvent> {
     }
 
     emit<K extends keyof TEvent>(event: K, data: TEvent[K]) {
-        if (this.events.has(event)) {
-            this.events.get(event)?.forEach((listener) => listener(data));
-        }
+        this.events.get(event)?.forEach((listener) => listener(data));
     }
 
     off<K extends keyof TEvent>(event: K, listener: EventBusListener<TEvent[K]>) {
