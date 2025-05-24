@@ -26,11 +26,10 @@ router.afterEach(() => {
     // 页面加载完毕之后，移除splash
     const appSplash = document.getElementById("app-splash");
     if (appSplash) {
-        appSplash.className = "app-splash-fade-out";
-        setTimeout(() => appSplash.remove(), 300);
+        appSplash.remove();
     }
 });
 
+useAuthStore().getUserInfo();
 startWebSocket();
 openWebSocket();
-useAuthStore().getUserInfo();

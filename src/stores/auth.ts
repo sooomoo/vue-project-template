@@ -2,8 +2,10 @@
 
 export const useAuthStore = defineStore("auth", () => {
     const user = ref<GetUserInfoResponse | null>(null);
-    const getUserInfo = async () => {
-        const resp = await apiUser.getUserInfo();
+    const getUserInfo = async (handle401: boolean = true) => {
+        const resp = handle401
+            ? await apiUser.getUserInfo()
+            : await apiUser.getUserInfoWithoutRedirect();
         if (resp.code === RespCode.succeed) {
             user.value = resp.data;
         } else {

@@ -1,35 +1,34 @@
 <script setup lang="ts">
 import { RespCode } from "@/composables/codes";
 
+const router = useRouter();
+const route = useRoute();
+const authStore = useAuthStore();
 const lvLogger = logger.tag("LoginView");
 
-const router = useRouter();
+const redirect = decodeURIComponent((route.query.redirect as string) ?? "/");
+lvLogger.debug("redirect", redirect);
 try {
-    const user = await apiUser.getUserInfoWithoutRedirect();
-    if (user.code === RespCode.succeed) {
+    if (authStore.user) {
         // 如果用户已登录，直接跳转到首页
-        router.replace("/");
+        router.replace(redirect);
+    } else {
+        // 获取用户信息: 此时不需要处理401错误
+        await authStore.getUserInfo(false);
+        if (authStore.user && redirect) {
+            // 如果用户已登录，直接跳转到首页
+            router.replace(redirect);
+        }
     }
 } catch (e) {
     // 如果获取用户信息失败，可能是未登录或其他错误
     lvLogger.debug("获取用户信息失败，继续登录流程");
 }
 
-const emit = defineEmits<{
-    "status-update": [value: LoginStatus];
-}>();
-
-const authStore = useAuthStore();
-
 const mobile = ref("");
 const imgCode = ref("");
 const msgCode = ref("");
 const csrfResp = ref<PrepareLoginResponse>();
-
-onMounted(() => {
-    // 获取 csrf-token
-    doPrepareLogin();
-});
 
 /**
  * 刷新 csrf-token
@@ -42,6 +41,9 @@ const doPrepareLogin = async () => {
     }
     lvLogger.debug("prepareLogin", resp);
 };
+
+// 获取 csrf-token
+doPrepareLogin();
 
 /**
  * 发起登录请求
@@ -65,10 +67,12 @@ const handleSubmit = async () => {
     lvLogger.debug("login result", resp);
     if (resp.code === RespCode.succeed) {
         // 登录成功，获取一下用户数据
-        authStore.getUserInfo();
-        emit("status-update", "success");
+        await authStore.getUserInfo();
+        // 如果用户已登录，直接跳转到首页
+        if (redirect) router.replace(redirect);
     } else {
-        emit("status-update", "fail");
+        // show error message
+        lvLogger.debug("登录失败", resp);
     }
 };
 </script>
