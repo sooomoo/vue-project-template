@@ -13,9 +13,9 @@ export default defineConfig({
     appType: "spa",
     server: {
         https: {
-            cert: 'E:\\mkcert\\vite\\localhost+1.pem',
-            key: 'E:\\mkcert\\vite\\localhost+1-key.pem',
-        }
+            cert: "E:\\mkcert\\vite\\localhost+1.pem",
+            key: "E:\\mkcert\\vite\\localhost+1-key.pem",
+        },
     },
     plugins: [
         VueRouter({
@@ -80,7 +80,7 @@ export default defineConfig({
                 VueRouterAutoImports,
             ],
             dts: "src/types/auto-imports.d.ts",
-            dirs: ["src/utils", "src/components", "src/composables", "src/stores"],
+            dirs: ["src/utils/**", "src/components", "src/composables/**", "src/stores/**"],
         }),
         vueDevTools(),
     ],

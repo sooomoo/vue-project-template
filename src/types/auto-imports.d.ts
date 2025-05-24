@@ -12,6 +12,7 @@ declare global {
   const EventBus: typeof import('../utils/eventbus')['EventBus']
   const ExponentialRetryStrategy: typeof import('../utils/retry_strategy')['ExponentialRetryStrategy']
   const LogLevel: typeof import('../utils/logger')['LogLevel']
+  const PacketProtocol: typeof import('../utils/bytes/packet')['PacketProtocol']
   const Platform: typeof import('../utils/platform')['Platform']
   const RespCode: typeof import('../composables/codes')['RespCode']
   const acceptHMRUpdate: typeof import('pinia')['acceptHMRUpdate']
@@ -79,6 +80,7 @@ declare global {
   const isRunAsDesktop: typeof import('../composables/global')['isRunAsDesktop']
   const isWeb: typeof import('../composables/global')['isWeb']
   const isWin: typeof import('../composables/global')['isWin']
+  const jsonMarshaler: typeof import('../utils/bytes/marshaler')['jsonMarshaler']
   const logger: typeof import('../utils/logger')['logger']
   const makeDestructurable: typeof import('@vueuse/core')['makeDestructurable']
   const mapActions: typeof import('pinia')['mapActions']
@@ -88,6 +90,7 @@ declare global {
   const mapWritableState: typeof import('pinia')['mapWritableState']
   const markRaw: typeof import('vue')['markRaw']
   const memoize: typeof import('../utils/pref')['memoize']
+  const msgPackMarshaler: typeof import('../utils/bytes/marshaler')['msgPackMarshaler']
   const newBoxKeyPair: typeof import('../utils/security')['newBoxKeyPair']
   const newBoxKeyPairFromArray: typeof import('../utils/security')['newBoxKeyPairFromArray']
   const newSignKeyPair: typeof import('../utils/security')['newSignKeyPair']
@@ -142,6 +145,7 @@ declare global {
   const shallowRef: typeof import('vue')['shallowRef']
   const sleep: typeof import('../utils/async')['sleep']
   const storeToRefs: typeof import('pinia')['storeToRefs']
+  const stringifyObj: typeof import('../composables/core/sign')['stringifyObj']
   const syncRef: typeof import('@vueuse/core')['syncRef']
   const syncRefs: typeof import('@vueuse/core')['syncRefs']
   const templateRef: typeof import('@vueuse/core')['templateRef']
@@ -205,6 +209,7 @@ declare global {
   const useDebounce: typeof import('@vueuse/core')['useDebounce']
   const useDebounceFn: typeof import('@vueuse/core')['useDebounceFn']
   const useDebouncedRefHistory: typeof import('@vueuse/core')['useDebouncedRefHistory']
+  const useDecrypt: typeof import('../composables/core/crypto')['useDecrypt']
   const useDeviceMotion: typeof import('@vueuse/core')['useDeviceMotion']
   const useDeviceOrientation: typeof import('@vueuse/core')['useDeviceOrientation']
   const useDevicePixelRatio: typeof import('@vueuse/core')['useDevicePixelRatio']
@@ -218,6 +223,7 @@ declare global {
   const useElementHover: typeof import('@vueuse/core')['useElementHover']
   const useElementSize: typeof import('@vueuse/core')['useElementSize']
   const useElementVisibility: typeof import('@vueuse/core')['useElementVisibility']
+  const useEncrypt: typeof import('../composables/core/crypto')['useEncrypt']
   const useEventBus: typeof import('@vueuse/core')['useEventBus']
   const useEventListener: typeof import('@vueuse/core')['useEventListener']
   const useEventSource: typeof import('@vueuse/core')['useEventSource']
@@ -232,6 +238,7 @@ declare global {
   const useFullscreen: typeof import('@vueuse/core')['useFullscreen']
   const useGamepad: typeof import('@vueuse/core')['useGamepad']
   const useGeolocation: typeof import('@vueuse/core')['useGeolocation']
+  const useGet: typeof import('../composables/api/http')['useGet']
   const useI18n: typeof import('vue-i18n')['useI18n']
   const useId: typeof import('vue')['useId']
   const useIdle: typeof import('@vueuse/core')['useIdle']
@@ -270,6 +277,7 @@ declare global {
   const usePointer: typeof import('@vueuse/core')['usePointer']
   const usePointerLock: typeof import('@vueuse/core')['usePointerLock']
   const usePointerSwipe: typeof import('@vueuse/core')['usePointerSwipe']
+  const usePost: typeof import('../composables/api/http')['usePost']
   const usePreferredColorScheme: typeof import('@vueuse/core')['usePreferredColorScheme']
   const usePreferredContrast: typeof import('@vueuse/core')['usePreferredContrast']
   const usePreferredDark: typeof import('@vueuse/core')['usePreferredDark']
@@ -290,6 +298,8 @@ declare global {
   const useScrollLock: typeof import('@vueuse/core')['useScrollLock']
   const useSessionStorage: typeof import('@vueuse/core')['useSessionStorage']
   const useShare: typeof import('@vueuse/core')['useShare']
+  const useSignData: typeof import('../composables/core/sign')['useSignData']
+  const useSignVerify: typeof import('../composables/core/sign')['useSignVerify']
   const useSlots: typeof import('vue')['useSlots']
   const useSorted: typeof import('@vueuse/core')['useSorted']
   const useSpeechRecognition: typeof import('@vueuse/core')['useSpeechRecognition']
@@ -356,6 +366,12 @@ declare global {
   export type { Component, Slot, Slots, ComponentPublicInstance, ComputedRef, DirectiveBinding, ExtractDefaultPropTypes, ExtractPropTypes, ExtractPublicPropTypes, InjectionKey, PropType, Ref, MaybeRef, MaybeRefOrGetter, VNode, WritableComputedRef } from 'vue'
   import('vue')
   // @ts-ignore
+  export type { Marshaler } from '../utils/bytes/marshaler'
+  import('../utils/bytes/marshaler')
+  // @ts-ignore
+  export type { PacketProtocol, PacketMetaData, ResponsePacketMetaData, ResponsePacket } from '../utils/bytes/packet'
+  import('../utils/bytes/packet')
+  // @ts-ignore
   export type { EventBus, EventBusListener } from '../utils/eventbus'
   import('../utils/eventbus')
   // @ts-ignore
@@ -373,6 +389,9 @@ declare global {
   // @ts-ignore
   export type { DeadReason } from '../utils/websocket'
   import('../utils/websocket')
+  // @ts-ignore
+  export type { HttpOptions } from '../composables/api/http'
+  import('../composables/api/http')
   // @ts-ignore
   export type { RespCode, ResponseDto } from '../composables/codes'
   import('../composables/codes')
