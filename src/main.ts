@@ -20,7 +20,12 @@ if (!authStore.user) {
     }, 100);
 }
 
-startWebSocket();
+startWebSocket((event) => {
+    console.log("WebSocket message received:", event.data);
+    if (event.data.type === "websocket_message") {
+        useAppEventBus().emit("websocketMessage", event.data.data);
+    }
+});
 openWebSocket();
 
 router.afterEach((_to, _from) => {

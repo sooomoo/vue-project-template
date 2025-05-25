@@ -9,6 +9,7 @@ export interface DropFilesEvent {
 interface AppEvent {
     secondLaunchArgs: string[];
     dropFiles: DropFilesEvent;
+    websocketMessage: ResponsePacket<unknown>;
 }
 
 let appBus: EventBus<AppEvent> | null = null;
