@@ -161,9 +161,8 @@ class SecureRequest {
         }
         const { boxKeyPair, sessionId } = secrets;
 
-        const { method: methodRaw, url } = response.config;
+        const { method: methodRaw, url: path } = response.config;
         const method = methodRaw?.toUpperCase() ?? "";
-        const path = url?.replace(import.meta.env.VITE_API_BASE_URL, "") || "";
         const log = logger.tag(method + " " + path + " response");
         log.debug("response :", response);
         const strQuery = response.config.params ? stringifyObj(response.config.params) : "";
