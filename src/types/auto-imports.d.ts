@@ -67,6 +67,7 @@ declare global {
   const getCurrentScope: typeof import('vue')['getCurrentScope']
   const getOSType: typeof import('../utils/platform')['getOSType']
   const getPlatform: typeof import('../utils/platform')['getPlatform']
+  const getPlatformId: typeof import('../utils/platform')['getPlatformId']
   const getPlatformName: typeof import('../utils/platform')['getPlatformName']
   const getSecuretsFromStorage: typeof import('../utils/security')['getSecuretsFromStorage']
   const getThemeMode: typeof import('../composables/theme')['getThemeMode']

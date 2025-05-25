@@ -1,6 +1,7 @@
 import * as base64 from "@juanelas/base64";
 import { randomBytes } from "@noble/ciphers/webcrypto";
 import { ed25519, x25519 } from "@noble/curves/ed25519";
+import Cookies from "js-cookie";
 
 export interface Signer {
     sign(data: Uint8Array): Uint8Array<ArrayBuffer>;
@@ -104,17 +105,19 @@ export interface Secrets {
  * @returns
  */
 export const getSecuretsFromStorage = (): Secrets | undefined => {
-    const sessionId = useLocalStorage(import.meta.env.VITE_COOKIE_SK1_NAME, "");
-    const clientKey = useLocalStorage(import.meta.env.VITE_COOKIE_SK2_NAME, "");
-    const pubKeys = decodeSecureString(sessionId.value || "");
-    const priKeys = decodeSecureString(clientKey.value || "");
+    const sessionId = Cookies.get(import.meta.env.VITE_COOKIE_SK1_NAME) ?? "";
+    logger.debug("sessionId", sessionId);
+    const clientKey = Cookies.get(import.meta.env.VITE_COOKIE_SK2_NAME) ?? "";
+    logger.debug("clientKey", clientKey);
+    const pubKeys = decodeSecureString(sessionId || "");
+    const priKeys = decodeSecureString(clientKey || "");
     if (pubKeys.box && pubKeys.sign && priKeys.box && priKeys.sign) {
         const boxKeyPair = newBoxKeyPairFromArray(pubKeys.box!, priKeys.box!);
         const signKeyPair = newSignKeyPairFromArray(pubKeys.sign!, priKeys.sign!);
         return {
             boxKeyPair: boxKeyPair,
             signKeyPair: signKeyPair,
-            sessionId: sessionId.value || "",
+            sessionId: sessionId || "",
         };
     }
 };
@@ -125,25 +128,35 @@ export const getSecuretsFromStorage = (): Secrets | undefined => {
  * @returns
  */
 export const ensureSecurets = (): Secrets => {
-    const sessionId = useLocalStorage(import.meta.env.VITE_COOKIE_SK1_NAME, "");
+    let sessionId = Cookies.get(import.meta.env.VITE_COOKIE_SK1_NAME) ?? "";
     logger.debug("sessionId", sessionId);
-    const clientKey = useLocalStorage(import.meta.env.VITE_COOKIE_SK2_NAME, "");
+    let clientKey = Cookies.get(import.meta.env.VITE_COOKIE_SK2_NAME) ?? "";
     logger.debug("clientKey", clientKey);
-    const pubKeys = decodeSecureString(sessionId.value || "");
+    const pubKeys = decodeSecureString(sessionId || "");
     logger.debug("pubKeys", pubKeys);
-    const priKeys = decodeSecureString(clientKey.value || "");
+    const priKeys = decodeSecureString(clientKey || "");
     logger.debug("priKeys", priKeys);
     if (!pubKeys.box || !pubKeys.sign || !priKeys.box || !priKeys.sign) {
         // 需要重新生成
         logger.debug("需要重新生成");
         const boxKeyPair = newBoxKeyPair();
         const signKeyPair = newSignKeyPair();
-        sessionId.value = encodeSecureString(signKeyPair.publicKey, boxKeyPair.publicKey);
-        clientKey.value = encodeSecureString(signKeyPair.privateKey, boxKeyPair.privateKey);
+        sessionId = encodeSecureString(signKeyPair.publicKey, boxKeyPair.publicKey);
+        clientKey = encodeSecureString(signKeyPair.privateKey, boxKeyPair.privateKey);
+        Cookies.set(import.meta.env.VITE_COOKIE_SK1_NAME, sessionId, {
+            path: "/",
+            sameSite: "None",
+            secure: true,
+        });
+        Cookies.set(import.meta.env.VITE_COOKIE_SK2_NAME, clientKey, {
+            path: "/",
+            sameSite: "None",
+            secure: true,
+        });
         return {
             boxKeyPair: boxKeyPair,
             signKeyPair: signKeyPair,
-            sessionId: sessionId.value || "",
+            sessionId: sessionId || "",
         };
     } else {
         logger.debug("不需要重新生成");
@@ -152,7 +165,7 @@ export const ensureSecurets = (): Secrets => {
         return {
             boxKeyPair: boxKeyPair,
             signKeyPair: signKeyPair,
-            sessionId: sessionId.value || "",
+            sessionId: sessionId || "",
         };
     }
 };

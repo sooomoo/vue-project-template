@@ -1,7 +1,11 @@
 // 初始化平台类型，主题模式等必须的配置
 const init = () => {
     let platform = "web";
-    if (window.wails) {
+    if (
+        window.wails ||
+        navigator.userAgent.toLowerCase().includes("wails") ||
+        window.location.href.toLowerCase().includes("wails")
+    ) {
         const userAgent = navigator.userAgent.toLowerCase();
         if (userAgent.includes("mac os x")) platform = "mac";
         if (userAgent.includes("windows")) platform = "win";

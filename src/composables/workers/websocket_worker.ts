@@ -5,6 +5,7 @@ import { ExponentialRetryStrategy } from "@/utils/retry_strategy";
 import type { DeadReason } from "@/utils/websocket";
 import { WebSocketClientBase } from "@/utils/websocket";
 import { msgPackMarshaler } from "@/utils/bytes/marshaler";
+import { logger } from "@/utils/logger";
 import {
     isConnectCmd,
     type IWebSocketCmd,
@@ -50,7 +51,7 @@ scope.onconnect = (e: MessageEvent) => {
 export class WebSocketClient extends WebSocketClientBase {
     private readonly protocal: PacketProtocol;
     private requestId = 0;
-    private readonly logger = logger.tag("WebSocketClient");
+    private readonly clog = logger.tag("WebSocketClient");
 
     onDeadCallback?: (reason: DeadReason) => void;
 
@@ -67,14 +68,14 @@ export class WebSocketClient extends WebSocketClientBase {
 
     onData(data: string | ArrayBuffer): void {
         if (typeof data == "string") {
-            this.logger.debug("text message: ", data);
+            this.clog.debug("text message: ", data);
         } else if (data instanceof ArrayBuffer) {
             const { msgType, requestId, timestamp, code } = this.protocal.getResponseMeta(
                 new Uint8Array(data),
             );
-            this.logger.debug("[META] recv message: ", msgType, requestId, timestamp, code);
+            this.clog.debug("[META] recv message: ", msgType, requestId, timestamp, code);
             if (msgType == WebSocketMsgType.pong) {
-                this.logger.debug("pong message");
+                this.clog.debug("pong message");
             }
         }
     }
@@ -84,26 +85,26 @@ export class WebSocketClient extends WebSocketClientBase {
     }
 
     override onConnected(): void {
-        this.logger.debug("connected");
+        this.clog.debug("connected");
     }
 
     override onWillReconnect(durationMs: number): void {
-        this.logger.debug(`reconnect after ${durationMs}ms`);
+        this.clog.debug(`reconnect after ${durationMs}ms`);
     }
 
     override onError(error: Event): void {
-        this.logger.debug("error", error);
+        this.clog.debug("error", error);
     }
 
     override onDead(reason: DeadReason): void {
-        this.logger.debug("onDead, reason: ", reason);
+        this.clog.debug("onDead, reason: ", reason);
         this.onDeadCallback?.(reason);
     }
 
     sendMsg<T>(msgType: WebSocketMsgType, payload?: T): number {
         this.requestId = (this.requestId + 1) % 0xffffffff;
         const packet = this.protocal.encodeReq<T>(msgType, this.requestId, payload);
-        this.logger.debug(
+        this.clog.debug(
             "send message: ",
             msgType,
             this.requestId,

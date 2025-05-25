@@ -19,3 +19,22 @@ export const getPlatform = (): Platform => {
     }
     return platform;
 };
+
+let _platform = "";
+export const getPlatformId = () => {
+    if (_platform.length > 0) {
+        return _platform;
+    }
+
+    _platform = "8";
+    const pla = getPlatform();
+    if (pla === "mac") {
+        _platform = "4";
+    } else if (pla === "win") {
+        _platform = "6";
+    } else if (pla === "linux") {
+        _platform = "7";
+    }
+
+    return _platform; // web 平台
+};

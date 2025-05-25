@@ -1,4 +1,5 @@
 import { initDesktopEvents, type DesktopEventsListener } from "@/desktop/events";
+import Cookies from "js-cookie";
 
 const desktopEventsListener: DesktopEventsListener = {
     secondLaunchCallback: (args) => {
@@ -19,6 +20,10 @@ export const initApp = () => {
     initDesktopEvents(desktopEventsListener);
 
     ensureSecurets();
+
+    const platId = getPlatformId();
+    logger.debug("platform id", platId);
+    Cookies.set("pla", platId, { path: "/", sameSite: "None", secure: true });
 
     // client id，session id 的初始化
     const cid = getClientId();

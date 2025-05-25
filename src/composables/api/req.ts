@@ -21,25 +21,6 @@ const headerRawType = "x-rawtype";
 const headerClientId = "x-client";
 const contentTypeEncrypted = "application/x-encrypted";
 
-let _platform = "";
-const getPlatformId = () => {
-    if (_platform.length > 0) {
-        return _platform;
-    }
-
-    _platform = "8";
-    const pla = getPlatform();
-    if (pla === "mac") {
-        _platform = "4";
-    } else if (pla === "win") {
-        _platform = "6";
-    } else if (pla === "linux") {
-        _platform = "7";
-    }
-
-    return _platform; // web 平台
-};
-
 export interface HttpOptions {
     cacheKey?: string;
     signal?: AbortSignal;
