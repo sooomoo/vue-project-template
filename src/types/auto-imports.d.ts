@@ -399,10 +399,4 @@ declare global {
   // @ts-ignore
   export type { ThemeMode } from '../composables/theme'
   import('../composables/theme')
-  // @ts-ignore
-  export type { WebSocketMsgType, WebSocketCmd, IWebSocketCmd, WebSocketConnectCmdData } from '../composables/workers/websocket_cmd'
-  import('../composables/workers/websocket_cmd')
-  // @ts-ignore
-  export type { WebSocketClient } from '../composables/workers/websocket_worker'
-  import('../composables/workers/websocket_worker')
 }

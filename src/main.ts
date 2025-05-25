@@ -4,6 +4,7 @@ initApp();
 
 import { RouterView } from "vue-router/auto";
 import router from "./router";
+import { startWebSocket, openWebSocket } from "@/workers/websocket";
 
 const app = createApp(RouterView);
 app.use(createPinia());
