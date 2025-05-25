@@ -91,7 +91,12 @@ class SecureRequest {
         );
         this.onceRefreshTokenTask = callOncePromise<AxiosResponse<any, any>, any>(() => {
             const refreshPath = import.meta.env.VITE_API_REFRESH_TOKEN_PATH;
-            return this.instance.request({ url: refreshPath, method: "POST" });
+            const refreshToken = localStorage.getItem("refresh_token");
+            return this.instance.request({
+                url: refreshPath,
+                method: "POST",
+                data: { token: refreshToken },
+            });
         });
     }
 

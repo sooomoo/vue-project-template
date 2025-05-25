@@ -6,7 +6,12 @@ export type Platform = "mac" | "win" | "linux" | "web";
  */
 export const getPlatform = (): Platform => {
     let platform: Platform = "web";
-    if ((window as unknown as { wails: unknown }).wails) {
+    const href = window.location.href.toLowerCase();
+    if (
+        navigator.userAgent.toLowerCase().includes("wails") ||
+        href.includes("wails") ||
+        (window as unknown as { wails: unknown }).wails
+    ) {
         const userAgent = navigator.userAgent.toLowerCase();
         if (userAgent.includes("mac os x")) platform = "mac";
         if (userAgent.includes("windows")) platform = "win";

@@ -23,7 +23,7 @@ if (!authStore.user) {
 startWebSocket();
 openWebSocket();
 
-router.afterEach((to, from) => {
+router.afterEach((_to, _from) => {
     // 页面加载完毕之后，移除splash
     const appSplash = document.getElementById("app-splash");
     if (appSplash) {
