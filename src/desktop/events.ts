@@ -1,4 +1,5 @@
 import { EventsOn, OnFileDrop } from "./wailsjs/runtime/runtime";
+import { getPlatform } from "vuepkg";
 
 export interface DesktopEventsListener {
     secondLaunchCallback: (args: string[]) => void;

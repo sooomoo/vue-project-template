@@ -11,6 +11,18 @@ import type {
 import axios from "axios";
 import axiosRetry from "axios-retry";
 import { gotoLoginPage } from "@/router";
+import {
+    type Secrets,
+    useDecrypt,
+    useEncrypt,
+    useSignVerify,
+    useSignData,
+    callOncePromise,
+    logger,
+    generateUUID,
+    getPlatformId,
+    stringifyObj,
+} from "vuepkg";
 
 const signHeaderTimestamp = "x-timestamp";
 const signHeaderNonce = "x-nonce";
@@ -127,7 +139,7 @@ class SecureRequest {
             config.headers.set("content-type", contentTypeEncrypted); // 设置请求头
             // 先加密
             let reqData = JSON.stringify(body);
-            reqData = useEncrypt(boxKeyPair, reqData);
+            reqData = useEncrypt(boxKeyPair, reqData, import.meta.env.VITE_SERVER_EX_PUB_KEY);
             config.data = reqData; // 替换原始数据为加密后的数据
             signData["body"] = reqData;
         }
@@ -183,14 +195,14 @@ class SecureRequest {
         });
         // log.debug("response sign data is: \n", respStr);
 
-        if (!useSignVerify(respStr, respSignature)) {
+        if (!useSignVerify(respStr, respSignature, import.meta.env.VITE_SERVER_SIGN_PUB_KEY)) {
             log.warn(`【FAILED】签名验证失败`, respData);
             throw new Error("签名验证失败");
         }
 
         const contentType = (response.headers["content-type"] as string) ?? "";
         if (contentType.startsWith(contentTypeEncrypted)) {
-            respData = useDecrypt(boxKeyPair, respData);
+            respData = useDecrypt(boxKeyPair, respData, import.meta.env.VITE_SERVER_EX_PUB_KEY);
             response.data = respData; // 替换原始数据为解密后的数据
             const rawType = (response.headers[headerRawType] as string | undefined) ?? "";
             if (rawType) {

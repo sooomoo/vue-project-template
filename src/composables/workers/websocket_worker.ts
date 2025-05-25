@@ -1,11 +1,13 @@
 /// <reference lib="webworker" />
 
-import { PacketProtocol } from "@/utils/bytes/packet";
-import { ExponentialRetryStrategy } from "@/utils/retry_strategy";
-import type { DeadReason } from "@/utils/websocket";
-import { WebSocketClientBase } from "@/utils/websocket";
-import { msgPackMarshaler } from "@/utils/bytes/marshaler";
-import { logger } from "@/utils/logger";
+import {
+    logger,
+    msgPackMarshaler,
+    WebSocketClientBase,
+    type DeadReason,
+    ExponentialRetryStrategy,
+    PacketProtocol,
+} from "vuepkg";
 import {
     isConnectCmd,
     type IWebSocketCmd,

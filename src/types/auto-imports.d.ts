@@ -58,7 +58,7 @@ declare global {
   const eagerComputed: typeof import('@vueuse/core')['eagerComputed']
   const effectScope: typeof import('vue')['effectScope']
   const encodeSecureString: typeof import('../utils/security')['encodeSecureString']
-  const ensureSecurets: typeof import('../utils/security')['ensureSecurets']
+  const ensureSecurets: typeof import('../composables/init')['ensureSecurets']
   const extendRef: typeof import('@vueuse/core')['extendRef']
   const generateUUID: typeof import('../utils/security')['generateUUID']
   const getActivePinia: typeof import('pinia')['getActivePinia']
@@ -69,7 +69,7 @@ declare global {
   const getPlatform: typeof import('../utils/platform')['getPlatform']
   const getPlatformId: typeof import('../utils/platform')['getPlatformId']
   const getPlatformName: typeof import('../utils/platform')['getPlatformName']
-  const getSecuretsFromStorage: typeof import('../utils/security')['getSecuretsFromStorage']
+  const getSecuretsFromStorage: typeof import('../composables/init')['getSecuretsFromStorage']
   const getThemeMode: typeof import('../composables/theme')['getThemeMode']
   const h: typeof import('vue')['h']
   const ignorableWatch: typeof import('@vueuse/core')['ignorableWatch']
@@ -381,30 +381,6 @@ declare global {
   // @ts-ignore
   export type { Component, Slot, Slots, ComponentPublicInstance, ComputedRef, DirectiveBinding, ExtractDefaultPropTypes, ExtractPropTypes, ExtractPublicPropTypes, InjectionKey, PropType, Ref, MaybeRef, MaybeRefOrGetter, VNode, WritableComputedRef } from 'vue'
   import('vue')
-  // @ts-ignore
-  export type { Marshaler } from '../utils/bytes/marshaler'
-  import('../utils/bytes/marshaler')
-  // @ts-ignore
-  export type { PacketProtocol, PacketMetaData, ResponsePacketMetaData, ResponsePacket } from '../utils/bytes/packet'
-  import('../utils/bytes/packet')
-  // @ts-ignore
-  export type { EventBus, EventBusListener } from '../utils/eventbus'
-  import('../utils/eventbus')
-  // @ts-ignore
-  export type { LogLevel } from '../utils/logger'
-  import('../utils/logger')
-  // @ts-ignore
-  export type { Platform } from '../utils/platform'
-  import('../utils/platform')
-  // @ts-ignore
-  export type { ExponentialRetryStrategy, RetryStrategy } from '../utils/retry_strategy'
-  import('../utils/retry_strategy')
-  // @ts-ignore
-  export type { Signer, Crypter, KeyPair, Secrets } from '../utils/security'
-  import('../utils/security')
-  // @ts-ignore
-  export type { DeadReason } from '../utils/websocket'
-  import('../utils/websocket')
   // @ts-ignore
   export type { LoginParam, LoginStatus, PrepareLoginResponse, AuthResponse } from '../composables/api/api_auth'
   import('../composables/api/api_auth')

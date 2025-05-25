@@ -1,4 +1,5 @@
 import Cookies from "js-cookie";
+import { type ResponsePacket, EventBus, newUid, getPlatform } from "vuepkg";
 
 export interface DropFilesEvent {
     x: number;
