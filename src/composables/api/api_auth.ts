@@ -1,5 +1,6 @@
 import { gotoLoginPage } from "@/router";
-import { logger } from "vuepkg";
+import { logger, getPlatform } from "vuepkg";
+import { openWebSocket } from "@/workers/websocket";
 
 export interface LoginParam {
     countryCode: string; // 国家码，如 +86

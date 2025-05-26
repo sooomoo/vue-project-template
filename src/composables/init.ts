@@ -5,9 +5,12 @@ import {
     type Secrets,
     logger,
     decodeSecureString,
+    encodeSecureString,
     newBoxKeyPairFromArray,
     newSignKeyPairFromArray,
     getPlatformId,
+    newBoxKeyPair,
+    newSignKeyPair,
 } from "vuepkg";
 
 const desktopEventsListener: DesktopEventsListener = {
