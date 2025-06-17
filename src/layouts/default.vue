@@ -8,5 +8,22 @@ const isDesk = isDesktop();
 
 <template>
     <component :is="isDesk ? TitleBar : Header" />
-    <RouterView />
+    <main class="default-layout__body"> 
+        <RouterView />
+    </main>
+    <footer class="flex-center default-layout__footer">
+        Copyright &copy; 2023
+    </footer>
 </template>
+
+<style lang="scss" scoped>
+.default-layout__body {
+    flex: 1;
+    margin: 0;
+    height: fit-content;
+    padding-top: var(--header-height);
+}
+.default-layout__footer {
+    height: var(--footer-height);
+}
+</style>

@@ -10,7 +10,7 @@ const app = createApp(RouterView);
 app.use(createPinia());
 // app.use(DataLoaderPlugin, { router }); // Register the plugin before the router
 app.use(router); // adding the router will trigger the initial navigation
-app.mount("#app");
+app.mount(document.body);
 
 const authStore = useAuthStore();
 

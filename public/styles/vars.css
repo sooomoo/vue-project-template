@@ -2,7 +2,7 @@
     --scrollbar-size: 8px;
     --font-size: 14px;
     --line-height: 1.65;
-    --header-height: 36px;
+    --header-height: 56px;
 }
 :root[data-platform="mac"] {
     --header-height: 38px;
@@ -12,6 +12,7 @@
     --color-scrollbar-thumb: #ccc;
     --color-scrollbar-thumb-hover: #bbb;
     --color-background: transparent;
+    --color-header-background: #fffb;
     --color-text: #000000;
     --color-titlebar-btn-back: #00000000;
     --color-titlebar-btn-back-hover: #00000010;
@@ -25,6 +26,7 @@
 :root[data-theme="dark"] {
     --color-scrollbar-thumb: #444;
     --color-scrollbar-thumb-hover: #555;
+    --color-header-background: #222b;
     --color-background: transparent;
     --color-titlebar-btn-back: #ffffff00;
     --color-titlebar-btn-back-hover: #ffffff20;
