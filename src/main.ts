@@ -12,14 +12,6 @@ app.use(createPinia());
 app.use(router); // adding the router will trigger the initial navigation
 app.mount(document.body);
 
-const authStore = useAuthStore();
-
-console.log("user", authStore);
-if (!authStore.user) {
-    setTimeout(() => {
-        authStore.getUserInfo().catch((err) => console.error("获取用户信息失败", err));
-    }, 100);
-}
 
 startWebSocket((event) => {
     console.log("WebSocket message received:", event.data);
@@ -27,7 +19,18 @@ startWebSocket((event) => {
         useAppEventBus().emit("websocketMessage", event.data.data);
     }
 });
-openWebSocket();
+const authStore = useAuthStore();
+console.log("user", authStore);
+if (!authStore.user) {
+    setTimeout(async () => {
+        try {
+            await authStore.getUserInfo()
+            openWebSocket();
+        } catch (err) {
+            console.error("获取用户信息失败", err)
+        }
+    }, 100);
+}
 
 router.afterEach((_to, _from) => {
     // 页面加载完毕之后，移除splash
