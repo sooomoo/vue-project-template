@@ -11,6 +11,7 @@ import type {
 import axios from "axios";
 import axiosRetry from "axios-retry";
 import { gotoLoginPage } from "@/router";
+import {JSONParse, JSONStringify} from 'json-with-bigint';
 import {
     type Secrets,
     useDecrypt,
@@ -138,7 +139,7 @@ class SecureRequest {
         ) {
             config.headers.set("content-type", contentTypeEncrypted); // 设置请求头
             // 先加密
-            let reqData = JSON.stringify(body);
+            let reqData = JSONStringify(body);
             reqData = useEncrypt(boxKeyPair, reqData, import.meta.env.VITE_SERVER_EX_PUB_KEY);
             config.data = reqData; // 替换原始数据为加密后的数据
             signData["body"] = reqData;
@@ -209,10 +210,10 @@ class SecureRequest {
                 response.headers["Content-Type"] = rawType; // 恢复原始 Content-Type
                 if (rawType.startsWith("application/json")) {
                     try {
-                        response.data = JSON.parse(respData);
+                        response.data = JSONParse(respData);
                     } catch (e) {
-                        log.error("解密后JSON.parse失败", respData, e);
-                        throw new Error("解密后JSON.parse失败");
+                        log.error("解密后JSONParse失败", respData, e);
+                        throw new Error("解密后JSONParse失败");
                     }
                 }
             }

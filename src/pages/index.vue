@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import FilesDropTarget from "@/components/FilesDropTarget.vue";
+import { JSONStringify } from "json-with-bigint";
 import { getPlatform } from "vuepkg";
 
 const counterStore = useCounterStore();
@@ -19,10 +20,16 @@ bus.on("secondLaunchArgs", (args) => {
 const wsMsg = ref("");
 bus.on("websocketMessage", (message) => {
     console.log("websocketMessage", message);
-    wsMsg.value = JSON.stringify(message, null, 2) + "\n" + Date.now().toString();
+    wsMsg.value = JSONStringify(message, null, 2) + "\n" + Date.now().toString();
 });
 
 const dropFiles = reactive<Array<string | File>>([]);
+
+const userJson = computed(() => JSONStringify(authStore.user, undefined, 2));
+const userIDStr = computed(() => {
+    const t = 1602107439422259216021074394222592n
+    return `${t}`
+})
 
 const handleChange = (files: Array<string | File>) => {
     dropFiles.push(...files);
@@ -40,7 +47,11 @@ console.log("windows", window);
     <button @click="onClick">Increment</button>
     <div>Count is: {{ counterStore.count }}</div>
     <p>isDesktop: {{ isDesk }}, platform: {{ platform }}</p>
-    <pre>{{ authStore.user }}</pre>
+    <div>UserID: {{ authStore.user?.id }}</div>
+    <div>UserIDStr: {{ userIDStr }}</div>
+    <div>
+        <pre>{{ userJson }}</pre>
+    </div>
     <div>{{ url }}</div>
     <pre>{{ wsMsg }}</pre>
     <FilesDropTarget class="main__drop-area" @change="handleChange"> drop in </FilesDropTarget>
@@ -61,5 +72,5 @@ console.log("windows", window);
     align-items: center;
     justify-content: center;
     border-radius: 8px;
-} 
+}
 </style>
